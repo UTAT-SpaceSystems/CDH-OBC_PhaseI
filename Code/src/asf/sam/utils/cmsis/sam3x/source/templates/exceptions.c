@@ -69,7 +69,7 @@ void SUPC_Handler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void RSTC_Handler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void RTC_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void RTT_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void WDT_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void WDT_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));			// Note the change here.
 void PMC_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void EFC0_Handler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void EFC1_Handler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
@@ -150,7 +150,7 @@ void CAN1_Handler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #pragma weak RSTC_Handler=Dummy_Handler
 #pragma weak RTC_Handler=Dummy_Handler
 #pragma weak RTT_Handler=Dummy_Handler
-#pragma weak WDT_Handler=Dummy_Handler
+#pragma weak WDT_Handler=Dummy_Handler			// Note the change here.
 #pragma weak PMC_Handler=Dummy_Handler
 #pragma weak EFC0_Handler=Dummy_Handler
 #pragma weak EFC1_Handler=Dummy_Handler
@@ -221,6 +221,8 @@ void Dummy_Handler(void)
 	while (1) {
 	}
 }
+
+
 //void S_Handler(void)
 //{
 //	xPortSysTickHandler();

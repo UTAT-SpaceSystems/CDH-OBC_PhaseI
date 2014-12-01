@@ -101,17 +101,8 @@ int main( void )
 	of this file. */
 	#if mainCREATE_SIMPLE_BLINKY_DEMO_ONLY == 1
 	{
-// 		vParTestToggleLED(0);
-//		vParTestToggleLED(1);
-		vParTestToggleLED(2);		//Detects if the pin corresponding to LED0 has been set? (look at pin sections)
-		vParTestToggleLED(3);
-		//int i = 0;
-		//while(1)
-		//{
-			//
-			//i++;
-		//}
-		
+		gpio_toggle_pin(LED2_GPIO);
+				
 		my_blink();
 		//main_blinky();
 	}
@@ -196,5 +187,18 @@ void vApplicationTickHook( void )
 	code must not attempt to block, and only the interrupt safe FreeRTOS API
 	functions can be used (those that end in FromISR()). */
 }
+/*-----------------------------------------------------------*/
+
+/*---------------CUSTOM INTERRUPT HANDLERS-------------------*/
+
+void WDT_Handler(void)
+{
+	/* Clear status bit to acknowledge interrupt by dummy read. */
+	wdt_get_status(WDT);
+	gpio_toggle_pin(LED1_GPIO);
+	/* Restart the WDT counter. */
+	wdt_restart(WDT);
+}
+
 /*-----------------------------------------------------------*/
 

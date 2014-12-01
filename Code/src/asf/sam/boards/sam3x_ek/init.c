@@ -6,7 +6,7 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 *	FILE NAME:		init.c
 *
 *	PURPOSE:
-*	Brief SAM3X-EK board init.
+*	SAM3X-EK board initialization.
 *
 *	FILE REFERENCES:	compiler.h, board.h, conf_board.h, gpio.h
 *
@@ -28,6 +28,17 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 *
 *	DEVELOPMENT HISTORY:
 *	11/29/2014			Header Changed.
+*	
+*	11/30/2014			I added code to configure the watchdog timer and defined WATCHDOG_MR_CONFIG
+*						with the appropriate values to load into the mode register.
+*						
+*						NOTE: WDT is an instance of the Wdt struct defined in component_wdt.h, I simply
+*						had to change the value of the MDR attribute (Mode register)
+*						
+*						NOTE2: MDR can only be changed once until the next reset.
+*
+*						The code that I got is from the atmel watchdog example, check to make sure wdt.h
+*						is included properly as the wdt was added to this project.
 *
 */
 
@@ -35,13 +46,40 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #include "board.h"
 #include "conf_board.h"
 #include "gpio.h"
+#include "asf.h"
+
 
 void board_init(void)
 {
+	uint32_t wdt_mode, wdt_timer;	// Values used in initializing WDT.
+
 #ifndef CONF_BOARD_KEEP_WATCHDOG_AT_INIT
 	/* Disable the watchdog */
 	WDT->WDT_MR = WDT_MR_WDDIS;
+
 #endif
+
+#ifdef CONF_BOARD_KEEP_WATCHDOG_AT_INIT
+	/* Configure WDT to trigger an interrupt (or reset). */
+	wdt_mode = WDT_MR_WDFIEN |  /* Enable WDT fault interrupt. */
+		WDT_MR_WDRPROC |  /* WDT fault resets processor only. */
+		WDT_MR_WDIDLEHLT |
+		WDT_MR_WDRSTEN;   /* WDT stops in idle state. */
+
+	wdt_timer = 125;
+
+	/* Initialize WDT with the given parameters. */
+	wdt_init(WDT, wdt_mode, wdt_timer, wdt_timer);
+
+	/* Configure and enable WDT interrupt. */
+	NVIC_DisableIRQ(WDT_IRQn);
+	NVIC_ClearPendingIRQ(WDT_IRQn);
+	NVIC_SetPriority(WDT_IRQn, 0);
+	NVIC_EnableIRQ(WDT_IRQn);
+
+	// Use 	wdt_restart(WDT) to reset the watchdog timer.
+#endif
+
 
 	/* Configure Power LED */
 	gpio_configure_pin(LED3_GPIO, LED3_FLAGS);

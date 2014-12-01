@@ -27,7 +27,10 @@ All rights reserved
 *	DESCRIPTION:	Not Required.
 *
 *	DEVELOPMENT HISTORY:
-*	11/29/2014			Header Changed.			
+*	11/29/2014			Header Changed.	
+*
+*	11/30/2014			Added an include for wdt.h (the header file for stuff involving 
+*						the watchdog timer.
 *
 */
 
@@ -62,6 +65,9 @@ All rights reserved
 
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
+
+// From module: WDT - Watchdog Timer
+#include <asf/sam/drivers/wdt/wdt.h>
 
 // From module: pio_handler support enabled
 #include <pio_handler.h>

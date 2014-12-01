@@ -12,7 +12,7 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 *	- peripheral ID
 *	- PIO definitions
 *
-*	FILE REFERENCES:	board.h, pmc.h
+*	FILE REFERENCES:	stdint.h, system_sam3x.h, core_cm3.h, component_wdt.h, instance_wdt.h, ...
 *
 *	EXTERNAL VARIABLES:		None that I'm aware of.
 *
@@ -23,7 +23,9 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 *	ASSUMPTIONS, CONSTRAINTS, CONDITIONS:	None.
 *
 *	NOTES:
-*	None.
+*	The base addresses of certain peripherals are defined here.
+*
+*	Many of the components of the ATSAM3X8E microcontroller have 'includes' here.
 *
 *	REQUIREMENTS/ FUNCTIONAL SPECIFICATION REFERENCES:
 *	None.

@@ -35,8 +35,12 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #define _SAM3X_EK_H_
 
 #include "compiler.h"
-#include "system_sam3x.h"
+#include "system_sam3x.h"		//Initially at .h
 #include "exceptions.h"
+
+//I included this:
+//#include "pio_sam3x8e.h"
+
 
 /*#define BOARD_REV_A */
 #define BOARD_REV_B

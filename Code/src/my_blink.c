@@ -29,6 +29,8 @@
 	*	DEVELOPMENT HISTORY:		
 	*	11/22/2014		Created.
 	*
+	*	11/30/2014		gpio_set_pin_low(LED3_GPIO) exchanged for vPartest set function.
+	*
 	*	DESCRIPTION:
 	*	I create two tasks called prvTurnOnTask and prvTurnOffTask which simply turn LED0 on and off.
 	*	I am making them have an equal priority such that they must share processing time.
@@ -133,7 +135,7 @@ static void prvTurnOnTask( void *pvParameters )
 			//}
 			//
 		//xQueueReceive( xQueue1, &led_flag, portMAX_DELAY );
-		vParTestSetLED( 0, 1 );
+		gpio_set_pin_high(LED3_GPIO);
 	}
 }
 /*-----------------------------------------------------------*/
@@ -160,7 +162,7 @@ static void prvTurnOffTask( void *pvParameters )
 			//
 		//}
 		//xQueueReceive( xQueue2, &led_flag, portMAX_DELAY );
-		vParTestSetLED( 0, 0 );
+		gpio_set_pin_low(LED3_GPIO);
 	}
 }
 /*-----------------------------------------------------------*/

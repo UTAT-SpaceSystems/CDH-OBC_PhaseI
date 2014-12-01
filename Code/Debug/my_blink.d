@@ -36,7 +36,7 @@ my_blink.d my_blink.o: ../src/my_blink.c \
  ../src/asf/sam/utils/preprocessor/preprocessor.h \
  ../src/asf/sam/utils/header_files/io.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/sam3xa.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/sam3x8h.h \
+ ../src/asf/sam/utils/cmsis/sam3x/include/sam3x8e.h \
  ../src/asf/thirdparty/CMSIS/Include/core_cm3.h \
  ../src/asf/thirdparty/CMSIS/Include/core_cmInstr.h \
  ../src/asf/thirdparty/CMSIS/Include/core_cmFunc.h \
@@ -58,7 +58,6 @@ my_blink.d my_blink.o: ../src/my_blink.c \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rstc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rtc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rtt.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/component/component_sdramc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_smc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_spi.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_ssc.h \
@@ -73,7 +72,6 @@ my_blink.d my_blink.o: ../src/my_blink.c \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_ssc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi0.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi1.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc0.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc1.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc2.h \
@@ -93,7 +91,6 @@ my_blink.d my_blink.o: ../src/my_blink.c \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_dmac.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_dacc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_smc.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_matrix.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pmc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_uart.h \
@@ -104,15 +101,13 @@ my_blink.d my_blink.o: ../src/my_blink.c \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piob.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pioc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piod.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pioe.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piof.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rstc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_supc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rtt.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_wdt.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rtc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h \
+ ../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stdbool.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\stdlib.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\machine\stdlib.h \
@@ -133,7 +128,7 @@ my_blink.d my_blink.o: ../src/my_blink.c \
  ../src/asf/common/services/clock/sam3x/osc.h \
  ../src/asf/common/services/clock/pll.h \
  ../src/asf/common/services/clock/sam3x/pll.h \
- ../src/asf/sam/drivers/usart/usart.h \
+ ../src/asf/sam/drivers/usart/usart.h ../src/asf/sam/drivers/wdt/wdt.h \
  ../src/asf/sam/drivers/pio/pio_handler.h \
  ../src/Common-Demo-Source/include/partest.h
 
@@ -215,7 +210,7 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/sam3xa.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/sam3x8h.h:
+../src/asf/sam/utils/cmsis/sam3x/include/sam3x8e.h:
 
 ../src/asf/thirdparty/CMSIS/Include/core_cm3.h:
 
@@ -259,8 +254,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rtt.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/component/component_sdramc.h:
-
 ../src/asf/sam/utils/cmsis/sam3x/include/component/component_smc.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/component/component_spi.h:
@@ -288,8 +281,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_ssc.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi0.h:
-
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi1.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc0.h:
 
@@ -329,8 +320,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_smc.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h:
-
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_matrix.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pmc.h:
@@ -351,10 +340,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piod.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pioe.h:
-
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piof.h:
-
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rstc.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_supc.h:
@@ -367,7 +352,7 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h:
+../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stdbool.h:
 
@@ -416,6 +401,8 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 ../src/asf/common/services/clock/sam3x/pll.h:
 
 ../src/asf/sam/drivers/usart/usart.h:
+
+../src/asf/sam/drivers/wdt/wdt.h:
 
 ../src/asf/sam/drivers/pio/pio_handler.h:
 

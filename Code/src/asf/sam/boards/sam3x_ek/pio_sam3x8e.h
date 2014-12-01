@@ -64,8 +64,6 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #define PIO_PA27             (1u << 27) /**< \brief Pin Controlled by PA27 */
 #define PIO_PA28             (1u << 28) /**< \brief Pin Controlled by PA28 */
 #define PIO_PA29             (1u << 29) /**< \brief Pin Controlled by PA29 */
-#define PIO_PA30             (1u << 30) /**< \brief Pin Controlled by PA30 */
-#define PIO_PA31             (1u << 31) /**< \brief Pin Controlled by PA31 */
 #define PIO_PB0              (1u << 0)  /**< \brief Pin Controlled by PB0 */
 #define PIO_PB1              (1u << 1)  /**< \brief Pin Controlled by PB1 */
 #define PIO_PB2              (1u << 2)  /**< \brief Pin Controlled by PB2 */
@@ -140,64 +138,6 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #define PIO_PD8              (1u << 8)  /**< \brief Pin Controlled by PD8 */
 #define PIO_PD9              (1u << 9)  /**< \brief Pin Controlled by PD9 */
 #define PIO_PD10             (1u << 10) /**< \brief Pin Controlled by PD10 */
-#define PIO_PD11             (1u << 11) /**< \brief Pin Controlled by PD11 */
-#define PIO_PD12             (1u << 12) /**< \brief Pin Controlled by PD12 */
-#define PIO_PD13             (1u << 13) /**< \brief Pin Controlled by PD13 */
-#define PIO_PD14             (1u << 14) /**< \brief Pin Controlled by PD14 */
-#define PIO_PD15             (1u << 15) /**< \brief Pin Controlled by PD15 */
-#define PIO_PD16             (1u << 16) /**< \brief Pin Controlled by PD16 */
-#define PIO_PD17             (1u << 17) /**< \brief Pin Controlled by PD17 */
-#define PIO_PD18             (1u << 18) /**< \brief Pin Controlled by PD18 */
-#define PIO_PD19             (1u << 19) /**< \brief Pin Controlled by PD19 */
-#define PIO_PD20             (1u << 20) /**< \brief Pin Controlled by PD20 */
-#define PIO_PD21             (1u << 21) /**< \brief Pin Controlled by PD21 */
-#define PIO_PD22             (1u << 22) /**< \brief Pin Controlled by PD22 */
-#define PIO_PD23             (1u << 23) /**< \brief Pin Controlled by PD23 */
-#define PIO_PD24             (1u << 24) /**< \brief Pin Controlled by PD24 */
-#define PIO_PD25             (1u << 25) /**< \brief Pin Controlled by PD25 */
-#define PIO_PD26             (1u << 26) /**< \brief Pin Controlled by PD26 */
-#define PIO_PD27             (1u << 27) /**< \brief Pin Controlled by PD27 */
-#define PIO_PD28             (1u << 28) /**< \brief Pin Controlled by PD28 */
-#define PIO_PD29             (1u << 29) /**< \brief Pin Controlled by PD29 */
-#define PIO_PD30             (1u << 30) /**< \brief Pin Controlled by PD30 */
-#define PIO_PE0              (1u << 0)  /**< \brief Pin Controlled by PE0 */
-#define PIO_PE1              (1u << 1)  /**< \brief Pin Controlled by PE1 */
-#define PIO_PE2              (1u << 2)  /**< \brief Pin Controlled by PE2 */
-#define PIO_PE3              (1u << 3)  /**< \brief Pin Controlled by PE3 */
-#define PIO_PE4              (1u << 4)  /**< \brief Pin Controlled by PE4 */
-#define PIO_PE5              (1u << 5)  /**< \brief Pin Controlled by PE5 */
-#define PIO_PE6              (1u << 6)  /**< \brief Pin Controlled by PE6 */
-#define PIO_PE7              (1u << 7)  /**< \brief Pin Controlled by PE7 */
-#define PIO_PE8              (1u << 8)  /**< \brief Pin Controlled by PE8 */
-#define PIO_PE9              (1u << 9)  /**< \brief Pin Controlled by PE9 */
-#define PIO_PE10             (1u << 10) /**< \brief Pin Controlled by PE10 */
-#define PIO_PE11             (1u << 11) /**< \brief Pin Controlled by PE11 */
-#define PIO_PE12             (1u << 12) /**< \brief Pin Controlled by PE12 */
-#define PIO_PE13             (1u << 13) /**< \brief Pin Controlled by PE13 */
-#define PIO_PE14             (1u << 14) /**< \brief Pin Controlled by PE14 */
-#define PIO_PE15             (1u << 15) /**< \brief Pin Controlled by PE15 */
-#define PIO_PE16             (1u << 16) /**< \brief Pin Controlled by PE16 */
-#define PIO_PE17             (1u << 17) /**< \brief Pin Controlled by PE17 */
-#define PIO_PE18             (1u << 18) /**< \brief Pin Controlled by PE18 */
-#define PIO_PE19             (1u << 19) /**< \brief Pin Controlled by PE19 */
-#define PIO_PE20             (1u << 20) /**< \brief Pin Controlled by PE20 */
-#define PIO_PE21             (1u << 21) /**< \brief Pin Controlled by PE21 */
-#define PIO_PE22             (1u << 22) /**< \brief Pin Controlled by PE22 */
-#define PIO_PE23             (1u << 23) /**< \brief Pin Controlled by PE23 */
-#define PIO_PE24             (1u << 24) /**< \brief Pin Controlled by PE24 */
-#define PIO_PE25             (1u << 25) /**< \brief Pin Controlled by PE25 */
-#define PIO_PE26             (1u << 26) /**< \brief Pin Controlled by PE26 */
-#define PIO_PE27             (1u << 27) /**< \brief Pin Controlled by PE27 */
-#define PIO_PE28             (1u << 28) /**< \brief Pin Controlled by PE28 */
-#define PIO_PE29             (1u << 29) /**< \brief Pin Controlled by PE29 */
-#define PIO_PE30             (1u << 30) /**< \brief Pin Controlled by PE30 */
-#define PIO_PE31             (1u << 31) /**< \brief Pin Controlled by PE31 */
-#define PIO_PF0              (1u << 0)  /**< \brief Pin Controlled by PF0 */
-#define PIO_PF1              (1u << 1)  /**< \brief Pin Controlled by PF1 */
-#define PIO_PF2              (1u << 2)  /**< \brief Pin Controlled by PF2 */
-#define PIO_PF3              (1u << 3)  /**< \brief Pin Controlled by PF3 */
-#define PIO_PF4              (1u << 4)  /**< \brief Pin Controlled by PF4 */
-#define PIO_PF5              (1u << 5)  /**< \brief Pin Controlled by PF5 */
 /* ========== Pio definition for ADC peripheral ========== */
 #define PIO_PA2X1_AD0        (1u << 2)  /**< \brief Adc signal: AD0 */
 #define PIO_PA3X1_AD1        (1u << 3)  /**< \brief Adc signal: AD1/WKUP1 */
@@ -428,14 +368,6 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #define PIO_PA31A_SPI0_NPCS3 (1u << 31) /**< \brief Spi0 signal: SPI0_NPCS3 */
 #define PIO_PB23B_SPI0_NPCS3 (1u << 23) /**< \brief Spi0 signal: SPI0_NPCS3 */
 #define PIO_PA27A_SPI0_SPCK  (1u << 27) /**< \brief Spi0 signal: SPI0_SPCK */
-/* ========== Pio definition for SPI1 peripheral ========== */
-#define PIO_PE28A_SPI1_MISO  (1u << 28) /**< \brief Spi1 signal: SPI1_MISO */
-#define PIO_PE29A_SPI1_MOSI  (1u << 29) /**< \brief Spi1 signal: SPI1_MOSI */
-#define PIO_PE31A_SPI1_NPCS0 (1u << 31) /**< \brief Spi1 signal: SPI1_NPCS0 */
-#define PIO_PF0A_SPI1_NPCS1  (1u << 0)  /**< \brief Spi1 signal: SPI1_NPCS1 */
-#define PIO_PF1A_SPI1_NPCS2  (1u << 1)  /**< \brief Spi1 signal: SPI1_NPCS2 */
-#define PIO_PF2A_SPI1_NPCS3  (1u << 2)  /**< \brief Spi1 signal: SPI1_NPCS3 */
-#define PIO_PE30A_SPI1_SPCK  (1u << 30) /**< \brief Spi1 signal: SPI1_SPCK */
 /* ========== Pio definition for SSC peripheral ========== */
 #define PIO_PB18A_RD         (1u << 18) /**< \brief Ssc signal: RD */
 #define PIO_PB17A_RF         (1u << 17) /**< \brief Ssc signal: RF */
@@ -546,8 +478,6 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #define PIO_PA27_IDX         27
 #define PIO_PA28_IDX         28
 #define PIO_PA29_IDX         29
-#define PIO_PA30_IDX         30
-#define PIO_PA31_IDX         31
 #define PIO_PB0_IDX          32
 #define PIO_PB1_IDX          33
 #define PIO_PB2_IDX          34
@@ -622,64 +552,6 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #define PIO_PD8_IDX          104
 #define PIO_PD9_IDX          105
 #define PIO_PD10_IDX         106
-#define PIO_PD11_IDX         107
-#define PIO_PD12_IDX         108
-#define PIO_PD13_IDX         109
-#define PIO_PD14_IDX         110
-#define PIO_PD15_IDX         111
-#define PIO_PD16_IDX         112
-#define PIO_PD17_IDX         113
-#define PIO_PD18_IDX         114
-#define PIO_PD19_IDX         115
-#define PIO_PD20_IDX         116
-#define PIO_PD21_IDX         117
-#define PIO_PD22_IDX         118
-#define PIO_PD23_IDX         119
-#define PIO_PD24_IDX         120
-#define PIO_PD25_IDX         121
-#define PIO_PD26_IDX         122
-#define PIO_PD27_IDX         123
-#define PIO_PD28_IDX         124
-#define PIO_PD29_IDX         125
-#define PIO_PD30_IDX         126
-#define PIO_PE0_IDX          128
-#define PIO_PE1_IDX          129
-#define PIO_PE2_IDX          130
-#define PIO_PE3_IDX          131
-#define PIO_PE4_IDX          132
-#define PIO_PE5_IDX          133
-#define PIO_PE6_IDX          134
-#define PIO_PE7_IDX          135
-#define PIO_PE8_IDX          136
-#define PIO_PE9_IDX          137
-#define PIO_PE10_IDX         138
-#define PIO_PE11_IDX         139
-#define PIO_PE12_IDX         140
-#define PIO_PE13_IDX         141
-#define PIO_PE14_IDX         142
-#define PIO_PE15_IDX         143
-#define PIO_PE16_IDX         144
-#define PIO_PE17_IDX         145
-#define PIO_PE18_IDX         146
-#define PIO_PE19_IDX         147
-#define PIO_PE20_IDX         148
-#define PIO_PE21_IDX         149
-#define PIO_PE22_IDX         150
-#define PIO_PE23_IDX         151
-#define PIO_PE24_IDX         152
-#define PIO_PE25_IDX         153
-#define PIO_PE26_IDX         154
-#define PIO_PE27_IDX         155
-#define PIO_PE28_IDX         156
-#define PIO_PE29_IDX         157
-#define PIO_PE30_IDX         158
-#define PIO_PE31_IDX         159
-#define PIO_PF0_IDX          160
-#define PIO_PF1_IDX          161
-#define PIO_PF2_IDX          162
-#define PIO_PF3_IDX          163
-#define PIO_PF4_IDX          164
-#define PIO_PF5_IDX          165
 
 #endif /* _SAM3X8E_PIO_ */
 

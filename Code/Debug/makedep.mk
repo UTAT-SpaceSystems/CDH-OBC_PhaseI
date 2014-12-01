@@ -16,6 +16,8 @@ src\asf\sam\drivers\pmc\pmc.c
 
 src\asf\sam\drivers\usart\usart.c
 
+src\asf\sam\drivers\wdt\wdt.c
+
 src\asf\sam\utils\cmsis\sam3x\source\templates\exceptions.c
 
 src\asf\sam\utils\cmsis\sam3x\source\templates\gcc\startup_sam3x.c

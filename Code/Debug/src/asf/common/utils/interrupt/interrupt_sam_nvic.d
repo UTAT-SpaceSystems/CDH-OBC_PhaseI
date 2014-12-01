@@ -12,7 +12,7 @@ src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
  ../src/asf/sam/utils/preprocessor/preprocessor.h \
  ../src/asf/sam/utils/header_files/io.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/sam3xa.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/sam3x8h.h \
+ ../src/asf/sam/utils/cmsis/sam3x/include/sam3x8e.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stdint.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\machine\_default_types.h \
@@ -38,7 +38,6 @@ src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rstc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rtc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rtt.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/component/component_sdramc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_smc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_spi.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/component/component_ssc.h \
@@ -53,7 +52,6 @@ src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_ssc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi0.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi1.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc0.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc1.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc2.h \
@@ -73,7 +71,6 @@ src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_dmac.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_dacc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_smc.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_matrix.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pmc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_uart.h \
@@ -84,15 +81,13 @@ src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piob.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pioc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piod.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pioe.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piof.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rstc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_supc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rtt.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_wdt.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rtc.h \
  ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h \
- ../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h \
+ ../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\stdio.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\newlib.h \
@@ -136,7 +131,7 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/sam3xa.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/sam3x8h.h:
+../src/asf/sam/utils/cmsis/sam3x/include/sam3x8e.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stdint.h:
 
@@ -188,8 +183,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/component/component_rtt.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/component/component_sdramc.h:
-
 ../src/asf/sam/utils/cmsis/sam3x/include/component/component_smc.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/component/component_spi.h:
@@ -217,8 +210,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_ssc.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi0.h:
-
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_spi1.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_tc0.h:
 
@@ -258,8 +249,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_smc.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h:
-
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_matrix.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pmc.h:
@@ -280,10 +269,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piod.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_pioe.h:
-
-../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_piof.h:
-
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_rstc.h:
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_supc.h:
@@ -296,7 +281,7 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 
 ../src/asf/sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h:
 
-../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h:
+../src/asf/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\stdio.h:
 

@@ -1,7 +1,9 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * \brief Watchdog Timer (WDT) driver for SAM.
+ *
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,30 +41,35 @@
  *
  */
 
-#ifndef _SAM3XA_
-#define _SAM3XA_
-#endif /* _SAM3XA_ */
+#ifndef WDT_H_INCLUDED
+#define WDT_H_INCLUDED
 
-#ifndef __SAM3X8E__
-#define __SAM3X8E__
+#include "compiler.h"
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
 #endif
+/**INDENT-ON**/
+/// @endcond
 
-#if defined __SAM3A4C__
-  #include "sam3a4c.h"
-#elif defined __SAM3A8C__
-  #include "sam3a8c.h"
-#elif defined __SAM3X4C__
-  #include "sam3x4c.h"
-#elif defined __SAM3X4E__
-  #include "sam3x4e.h"
-#elif defined __SAM3X8C__
-  #include "sam3x8c.h"
-#elif defined __SAM3X8E__
-  #include "sam3x8e.h"
-#elif defined __SAM3X8H__
-  #include "sam3x8h.h"
-#else
-  #error Library does not support the specified device.
+#define WDT_INVALID_ARGUMENT 0xFFFF
+
+uint32_t wdt_get_timeout_value(uint32_t ul_us, uint32_t ul_sclk);
+void wdt_init(Wdt *p_wdt, uint32_t ul_mode, uint16_t us_counter,
+		uint16_t us_delta);
+void wdt_disable(Wdt *p_wdt);
+void wdt_restart(Wdt *p_wdt);
+uint32_t wdt_get_status(Wdt *p_wdt);
+uint32_t wdt_get_us_timeout_period(Wdt *p_wdt, uint32_t ul_sclk);
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
 #endif
+/**INDENT-ON**/
+/// @endcond
 
-
+#endif /* WDT_H_INCLUDED */

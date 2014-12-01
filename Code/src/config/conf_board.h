@@ -1,3 +1,45 @@
+/*
+FreeRTOS V8.1.2 - Copyright (C) 2014 Real Time Engineers Ltd.
+All rights reserved
+***********************************************************************
+*	FILE NAME:		conf_board.h
+*
+*	PURPOSE:
+*	Board configuration File.
+*
+*	FILE REFERENCES:	None.
+*
+*	EXTERNAL VARIABLES:		None.
+*
+*	EXTERNAL REFERENCES:	Many, see dependencies diagram on dropbox.
+*
+*	ABORNOMAL TERMINATION CONDITIONS, ERROR AND WARNING MESSAGES: None yet.
+*
+*	ASSUMPTIONS, CONSTRAINTS, CONDITIONS:	None.
+*
+*	NOTES:
+*	The generic board support module includes board-specific definitions
+*	and function prototypes, such as the board initialization function.
+*
+*	Uncommenting different 'defines' will enabled certain parts of the board
+*	to be configured upon the next compilation.
+*
+*
+*	REQUIREMENTS/ FUNCTIONAL SPECIFICATION REFERENCES:
+*	None.
+*
+*	DESCRIPTION:	Not Required.
+*
+*	DEVELOPMENT HISTORY:
+*	11/29/2014			
+*
+*	Header Changed.
+*
+*	Line 85: Removed the commenting such that CONF_BOARD_KEEP_WATCHDOG_AT_INIT
+*	was defined. (This allows the watchdog to be initialized in init.c)
+*
+*/
+
 /**
  * \file
  *
@@ -45,7 +87,7 @@
 #define CONF_BOARD_H_INCLUDED
 
 /* Enabled Watchdog */
-//#define CONF_BOARD_KEEP_WATCHDOG_AT_INIT
+#define CONF_BOARD_KEEP_WATCHDOG_AT_INIT
 
 /* Configure UART pins */
 //#define CONF_BOARD_UART_CONSOLE

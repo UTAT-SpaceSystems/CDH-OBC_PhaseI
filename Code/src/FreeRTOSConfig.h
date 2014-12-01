@@ -45,7 +45,7 @@ All rights reserved
 //#error Ensure CreateProjectDirectoryStructure.bat has been executed before building.  See comment immediately above.
 
 #include <stdint.h>
-extern uint32_t SystemCoreClock;
+extern uint32_t SystemCoreClock;		// This is set at line 59 in system_sam3x.c
 
 #define configUSE_PREEMPTION			1
 #define configUSE_IDLE_HOOK				0

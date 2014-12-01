@@ -19,7 +19,8 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 *	ASSUMPTIONS, CONSTRAINTS, CONDITIONS:	None.
 *
 *	NOTES:
-*	None.
+*	Reset_Handler() here is the function that is actually called upon a system reset
+*	It makes a call to main()	
 *
 *	REQUIREMENTS/ FUNCTIONAL SPECIFICATION REFERENCES:
 *	None.
@@ -209,4 +210,3 @@ void Reset_Handler(void)
 	/* Infinite loop */
 	while (1);
 }
-
