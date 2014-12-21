@@ -6,7 +6,15 @@ src\asf\common\services\clock\sam3x\sysclk.c
 
 src\asf\common\utils\interrupt\interrupt_sam_nvic.c
 
+src\asf\common\utils\stdio\read.c
+
+src\asf\common\utils\stdio\write.c
+
 src\asf\sam\boards\sam3x_ek\init.c
+
+src\asf\sam\components\can\sn65hvd234.c
+
+src\asf\sam\drivers\can\can.c
 
 src\asf\sam\drivers\pio\pio.c
 
@@ -35,6 +43,8 @@ src\asf\thirdparty\FreeRTOS\queue.c
 src\asf\thirdparty\FreeRTOS\tasks.c
 
 src\asf\thirdparty\FreeRTOS\timers.c
+
+src\can_test0.c
 
 src\Common-Demo-Source\BlockQ.c
 

@@ -426,7 +426,28 @@
     <Compile Include="src\asf\common\utils\interrupt\interrupt_sam_nvic.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\asf\common\utils\stdio\read.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\utils\stdio\stdio_serial\stdio_serial.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\utils\stdio\write.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\asf\sam\boards\sam3x_ek\init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\components\can\sn65hvd234.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\components\can\sn65hvd234.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\can\can.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\can\can.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\sam\drivers\pio\pio.c">
@@ -517,6 +538,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\asf\thirdparty\FreeRTOS\timers.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\can_test0.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\can_test0.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Common-Demo-Source\BlockQ.c">
@@ -1034,10 +1061,15 @@
     <Folder Include="src\asf\common\services\gpio\sam_ioport\" />
     <Folder Include="src\asf\common\utils\" />
     <Folder Include="src\asf\common\utils\interrupt\" />
+    <Folder Include="src\asf\common\utils\stdio\" />
+    <Folder Include="src\asf\common\utils\stdio\stdio_serial\" />
     <Folder Include="src\asf\sam\" />
     <Folder Include="src\asf\sam\boards\" />
     <Folder Include="src\asf\sam\boards\sam3x_ek\" />
+    <Folder Include="src\asf\sam\components\" />
+    <Folder Include="src\asf\sam\components\can\" />
     <Folder Include="src\asf\sam\drivers\" />
+    <Folder Include="src\asf\sam\drivers\can\" />
     <Folder Include="src\asf\sam\drivers\pio\" />
     <Folder Include="src\asf\sam\drivers\pmc\" />
     <Folder Include="src\asf\sam\drivers\usart\" />
