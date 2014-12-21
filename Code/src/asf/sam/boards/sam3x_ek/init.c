@@ -80,6 +80,25 @@ void board_init(void)
 	// Use 	wdt_restart(WDT) to reset the watchdog timer.
 #endif
 
+	/*Configure CAN related pins*/
+#ifdef CONF_BOARD_CAN0
+	/* Configure the CAN0 TX and RX pins. */
+	gpio_configure_pin(PIN_CAN0_RX_IDX, PIN_CAN0_RX_FLAGS);
+	gpio_configure_pin(PIN_CAN0_TX_IDX, PIN_CAN0_TX_FLAGS);
+	/* Configure the transiver0 RS & EN pins. */
+	gpio_configure_pin(PIN_CAN0_TR_RS_IDX, PIN_CAN0_TR_RS_FLAGS);
+	gpio_configure_pin(PIN_CAN0_TR_EN_IDX, PIN_CAN0_TR_EN_FLAGS);
+#endif
+
+#ifdef CONF_BOARD_CAN1
+	/* Configure the CAN1 TX and RX pin. */
+	gpio_configure_pin(PIN_CAN1_RX_IDX, PIN_CAN1_RX_FLAGS);
+	gpio_configure_pin(PIN_CAN1_TX_IDX, PIN_CAN1_TX_FLAGS);
+	/* Configure the transiver1 RS & EN pins. */
+	gpio_configure_pin(PIN_CAN1_TR_RS_IDX, PIN_CAN1_TR_RS_FLAGS);
+	gpio_configure_pin(PIN_CAN1_TR_EN_IDX, PIN_CAN1_TR_EN_FLAGS);
+#endif
+
 
 	/* Configure Power LED */
 	gpio_configure_pin(LED3_GPIO, LED3_FLAGS);
@@ -357,24 +376,6 @@ void board_init(void)
 	/* Configure ISO7816 interface TXD & SCK pin */
 	gpio_configure_pin(PIN_USART0_TXD_IDX, PIN_USART0_TXD_FLAGS);
 	gpio_configure_pin(PIN_USART0_SCK_IDX, PIN_USART0_SCK_FLAGS);
-#endif
-
-#ifdef CONF_BOARD_CAN0
-	/* Configure the CAN0 TX and RX pins. */
-	gpio_configure_pin(PIN_CAN0_RX_IDX, PIN_CAN0_RX_FLAGS);
-	gpio_configure_pin(PIN_CAN0_TX_IDX, PIN_CAN0_TX_FLAGS);
-	/* Configure the transiver0 RS & EN pins. */
-	gpio_configure_pin(PIN_CAN0_TR_RS_IDX, PIN_CAN0_TR_RS_FLAGS);
-	gpio_configure_pin(PIN_CAN0_TR_EN_IDX, PIN_CAN0_TR_EN_FLAGS);
-#endif
-
-#ifdef CONF_BOARD_CAN1
-	/* Configure the CAN1 TX and RX pin. */
-	gpio_configure_pin(PIN_CAN1_RX_IDX, PIN_CAN1_RX_FLAGS);
-	gpio_configure_pin(PIN_CAN1_TX_IDX, PIN_CAN1_TX_FLAGS);
-	/* Configure the transiver1 RS & EN pins. */
-	gpio_configure_pin(PIN_CAN1_TR_RS_IDX, PIN_CAN1_TR_RS_FLAGS);
-	gpio_configure_pin(PIN_CAN1_TR_EN_IDX, PIN_CAN1_TR_EN_FLAGS);
 #endif
 
 #ifdef CONF_BOARD_SDRAMC
