@@ -108,59 +108,26 @@ void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 		pio_toggle_pin(LED0_GPIO);
 	else
 		pio_toggle_pin(LED1_GPIO);
-	if (ul_data_incom == CAN_HK_DUMMYDATA)
+	if (ul_data_incom == COMMAND_OUT)
 		pio_toggle_pin(LED0_GPIO);
-	if (ul_data_incom == CAN_HK_REQDATA)
+	if (ul_data_incom == COMMAND_IN)
 		pio_toggle_pin(LED1_GPIO);
-	
-	if (ul_data_incom == CAN_MSG_TOGGLE_LED_0)
-		pio_toggle_pin(LED0_GPIO);
-	else if (ul_data_incom == CAN_MSG_TOGGLE_LED_1)
-		pio_toggle_pin(LED1_GPIO);	
-	else if ((ul_data_incom == CAN_HK_REQDATA) & (controller == CAN0)) 
+
+	else if ((ul_data_incom == COMMAND_IN) & (controller == CAN0)) 
 	{
-		// If data is being requested, transmit.
+		// Command has been received, respond.
 		pio_toggle_pin(LED0_GPIO);
 		command_in();
 	}
-	else if ((ul_data_incom == CAN_HK_DUMMYDATA) & (controller == CAN1))
+	else if ((ul_data_incom == COMMAND_OUT) & (controller == CAN1))
 	{
-		pio_toggle_pin(LED2_GPIO);	// LED2 shall indicate a housekeeping transfer.
+		pio_toggle_pin(LED2_GPIO);	// LED2 indicates the response to the command
+	}								// has been received.
+	else if ((ul_data_incom == HK_TRANSMIT) & (controller == CAN1))
+	{
+		pio_toggle_pin(LED3_GPIO);	// LED3 indicates housekeeping has been received.
 	}
 	return;
-}
-
-/************************************************************************/
-/* Transmit Housekeeping Subroutine                                     */
-/*																		*/
-/* Note: This will need to be updated in order to implement actual HK   */
-/************************************************************************/
-
-
-void transmit_can_hk(can_mb_conf_t *p_mailbox, Can* controller)
-{
-			uint8_t	TCR = 1;
-
-			//reset_mailbox_conf(p_mailbox);
-			//p_mailbox->ul_mb_idx = 1;
-			//p_mailbox->uc_obj_type = CAN_MB_TX_MODE;
-			//p_mailbox->uc_tx_prio = HK_TRANSMIT_PRIO;
-			//p_mailbox->uc_id_ver = 0;
-			//p_mailbox->ul_id_msk = 0;
-			//can_mailbox_init(controller, p_mailbox);
-			
-			///* Write transmit information into mailbox. */
-			///* Note: Update such that this can be a loop for data
-				//longer than 64 bits */
-			//p_mailbox->ul_id = CAN_MID_MIDvA(HK_TRANSMIT_ID);
-			//p_mailbox->ul_datal = CAN_HK_DUMMYDATA;
-			//p_mailbox->ul_datah = CAN_MSG_DUMMY_DATA;
-			//p_mailbox->uc_length = MAX_CAN_FRAME_DATA_LEN;
-			///* Note: TCR depends on the mailbox bin(1,10,100,...)*/
-			//can_mailbox_write(controller, p_mailbox);
-			//can_global_send_transfer_cmd(controller, CAN_TCR_MB1);
-						
-			return;
 }
 
 /************************************************************************/
@@ -212,7 +179,7 @@ void command_out(void)
 
 	/* Write transmit information into mailbox. */
 	can1_mailbox.ul_id = CAN_MID_MIDvA(7);
-	can1_mailbox.ul_datal = CAN_HK_REQDATA;
+	can1_mailbox.ul_datal = COMMAND_IN;
 	can1_mailbox.ul_datah = CAN_MSG_DUMMY_DATA;
 	can1_mailbox.uc_length = MAX_CAN_FRAME_DATA_LEN;
 	can_mailbox_write(CAN1, &can1_mailbox);
@@ -227,6 +194,10 @@ void command_out(void)
 	}
 
 }
+
+/************************************************************************/
+/*				RESPOND TO THE COMMAND FROM CAN0 AND SEND TO CAN1       */
+/************************************************************************/
 
 void command_in(void)
 {
@@ -257,7 +228,7 @@ void command_in(void)
 
 	/* Write transmit information into mailbox. */
 	can0_mailbox.ul_id = CAN_MID_MIDvA(7);
-	can0_mailbox.ul_datal = CAN_HK_DUMMYDATA;
+	can0_mailbox.ul_datal = COMMAND_OUT;
 	can0_mailbox.ul_datah = CAN_MSG_DUMMY_DATA;
 	can0_mailbox.uc_length = MAX_CAN_FRAME_DATA_LEN;
 	can_mailbox_write(CAN0, &can0_mailbox);
@@ -270,7 +241,49 @@ void command_in(void)
 
 	while (!g_ul_recv_status) {
 	}
+}
 
+/************************************************************************/
+/*			THIS FUNCTION CHECKS THE FUNCTIONALITY OF THE				*/
+/*			PRODUCER-CONSUMER MODEL TO BE USED FOR HOUSEKEEPING         */
+/************************************************************************/
+
+void test_2(void)
+{
+	can_reset_all_mailbox(CAN0);
+	can_reset_all_mailbox(CAN1);
+
+	/* Init CAN0 Mailbox 3 to Producer Mailbox. */
+	reset_mailbox_conf(&can0_mailbox);
+	can0_mailbox.ul_mb_idx = 3;				// Mailbox 3
+	can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;
+	can0_mailbox.ul_id_msk = 0;
+	can0_mailbox.ul_id = CAN_MID_MIDvA(NODE0_ID);
+	can_mailbox_init(CAN0, &can0_mailbox);
+
+	/* Prepare the response information when it receives a remote frame. */
+	can0_mailbox.ul_datal = HK_TRANSMIT;
+	can0_mailbox.ul_datah = CAN_MSG_DUMMY_DATA;
+	can0_mailbox.uc_length = MAX_CAN_FRAME_DATA_LEN;
+	can_mailbox_write(CAN0, &can0_mailbox);
+
+	can_global_send_transfer_cmd(CAN0, CAN_TCR_MB3);
+
+	/* Init CAN1 Mailbox 3 to Consumer Mailbox. It sends a remote frame and waits for an answer. */
+	reset_mailbox_conf(&can1_mailbox);
+	can1_mailbox.ul_mb_idx = 3;				// Mailbox 3
+	can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;
+	can1_mailbox.uc_tx_prio = 9;
+	can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;
+	can1_mailbox.ul_id = CAN_MID_MIDvA(NODE0_ID);
+	can_mailbox_init(CAN1, &can1_mailbox);
+
+	/* Enable CAN1 mailbox 3 interrupt. */
+	can_enable_interrupt(CAN1, CAN_IER_MB3);
+
+	can_global_send_transfer_cmd(CAN1, CAN_TCR_MB3);
+	while (!g_ul_recv_status) {
+	}
 }
 
 int can_test1(void)
@@ -311,7 +324,8 @@ int can_test1(void)
 	/* Command-out causes a 'command' to be sent from CAN0 to CAN1 */
 	/* A response is then sent from CAN1 to CAN0 */
 	
-	command_out();		
+	//command_out();
+	test_2();		
 	
 	/* Disable CAN0 Controller */
 	can_disable(CAN0);
@@ -324,7 +338,6 @@ int can_test1(void)
 	/* Disable CAN1 Transceiver */
 	sn65hvd234_enable_low_power(&can1_transceiver);
 	sn65hvd234_disable(&can1_transceiver);
-
 	} 
 	
 	else { }

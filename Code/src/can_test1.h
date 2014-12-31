@@ -65,17 +65,15 @@
 		LED TOGGLE (LOWEST + 1) =	11
 */		
 
-#define CAN_HK_DUMMYDATA			0X01010101
-#define CAN_HK_REQDATA				0x00001111
-#define CAN_MSG_TOGGLE_LED_0        0x11223344
-#define CAN_MSG_TOGGLE_LED_1        0xAABBCCDD
+#define COMMAND_OUT					0X01010101
+#define COMMAND_IN					0x00001111
+#define HK_TRANSMIT					0x12345678
 #define CAN_MSG_DUMMY_DATA          0x55AAAA55
 
 #define NODE0_ID				10
 #define NODE1_ID				9
 
-#define LED_TOGGLE_PRIO			11
-#define HK_TRANSMIT_PRIO		10
+#define COMMAND_PRIO			11
 #define HK_REQUEST_PRIO			9
 
 
@@ -104,6 +102,6 @@ void reset_mailbox_conf(can_mb_conf_t *p_mailbox);
 void command_out(void);
 void command_in(void);
 int can_test1(void);
-void transmit_can_hk(can_mb_conf_t *p_mailbox, Can* controller);
+void test_2(void);
 /*---------------------------------------------------------*/
 

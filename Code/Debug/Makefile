@@ -111,7 +111,7 @@ C_SRCS +=  \
 ../src/asf/thirdparty/FreeRTOS/queue.c \
 ../src/asf/thirdparty/FreeRTOS/tasks.c \
 ../src/asf/thirdparty/FreeRTOS/timers.c \
-../src/can_test0.c \
+../src/can_test1.c \
 ../src/Common-Demo-Source/BlockQ.c \
 ../src/Common-Demo-Source/blocktim.c \
 ../src/Common-Demo-Source/comtest.c \
@@ -160,7 +160,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.o \
 src/asf/thirdparty/FreeRTOS/queue.o \
 src/asf/thirdparty/FreeRTOS/tasks.o \
 src/asf/thirdparty/FreeRTOS/timers.o \
-src/can_test0.o \
+src/can_test1.o \
 src/Common-Demo-Source/BlockQ.o \
 src/Common-Demo-Source/blocktim.o \
 src/Common-Demo-Source/comtest.o \
@@ -202,7 +202,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.o \
 src/asf/thirdparty/FreeRTOS/queue.o \
 src/asf/thirdparty/FreeRTOS/tasks.o \
 src/asf/thirdparty/FreeRTOS/timers.o \
-src/can_test0.o \
+src/can_test1.o \
 src/Common-Demo-Source/BlockQ.o \
 src/Common-Demo-Source/blocktim.o \
 src/Common-Demo-Source/comtest.o \
@@ -244,7 +244,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.d \
 src/asf/thirdparty/FreeRTOS/queue.d \
 src/asf/thirdparty/FreeRTOS/tasks.d \
 src/asf/thirdparty/FreeRTOS/timers.d \
-src/can_test0.d \
+src/can_test1.d \
 src/Common-Demo-Source/BlockQ.d \
 src/Common-Demo-Source/blocktim.d \
 src/Common-Demo-Source/comtest.d \
@@ -286,7 +286,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.d \
 src/asf/thirdparty/FreeRTOS/queue.d \
 src/asf/thirdparty/FreeRTOS/tasks.d \
 src/asf/thirdparty/FreeRTOS/timers.d \
-src/can_test0.d \
+src/can_test1.d \
 src/Common-Demo-Source/BlockQ.d \
 src/Common-Demo-Source/blocktim.d \
 src/Common-Demo-Source/comtest.d \

@@ -44,7 +44,7 @@ src\asf\thirdparty\FreeRTOS\tasks.c
 
 src\asf\thirdparty\FreeRTOS\timers.c
 
-src\can_test0.c
+src\can_test1.c
 
 src\Common-Demo-Source\BlockQ.c
 

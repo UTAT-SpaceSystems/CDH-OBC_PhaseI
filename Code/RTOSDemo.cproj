@@ -540,10 +540,10 @@
     <Compile Include="src\asf\thirdparty\FreeRTOS\timers.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\can_test0.c">
+    <Compile Include="src\can_test1.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\can_test0.h">
+    <Compile Include="src\can_test1.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Common-Demo-Source\BlockQ.c">

@@ -52,6 +52,10 @@ All rights reserved
 *
 *					Changed PROGRAM_CHOICE to PROGRAM_CHOICE.
 *
+*	12/24/2014		Included can_test1.h which corresponds to program choice can_test1.
+*
+*	12/27/2014		PROGRAM_CHOICE is currently 4 => can_test1.
+*
 *	DESCRIPTION:
 *	This is the 'main' file for our program which will run on the OBC.
 *	main.c is called from the reset handler and will initialize hardware,
@@ -79,15 +83,19 @@ function. */
 #include <asf.h>
 
 /* can_test0 includes */
-#include "can_test0.h"
+//#include "can_test0.h"		Comment out the other can_tests to use the one you want.
+
+/* can_test1 includes */
+#include "can_test1.h"
 
 /*
 * my_blink() is used when PROGRAM_CHOICE is set to 1.
 * main_blinky() is used when PROGRAM_CHOICE is set to 2.
 * can_test() is used when PROGRAM_CHOICE is set to 3.
-* main_full() is used when PROGRAM_CHOICE is set to 4.
+* can_test1() is used when PROGRAM_CHOICE is set to 4.
+* main_full() is used when PROGRAM_CHOICE is set to 5.
 */
-#define PROGRAM_CHOICE	3
+#define PROGRAM_CHOICE	4
 /*-----------------------------------------------------------*/
 
 /*
@@ -132,10 +140,15 @@ int main(void)
 #endif
 #if PROGRAM_CHOICE == 3
 	{
-		can_test();
+//		can_test0();
 	}
 #endif
 #if PROGRAM_CHOICE == 4
+	{
+		can_test1();
+	}
+#endif
+#if PROGRAM_CHOICE == 5
 	{
 		main_full();
 	}
