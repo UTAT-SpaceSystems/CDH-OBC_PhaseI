@@ -22,6 +22,8 @@ src\asf\sam\drivers\pio\pio_handler.c
 
 src\asf\sam\drivers\pmc\pmc.c
 
+src\asf\sam\drivers\rtt\rtt.c
+
 src\asf\sam\drivers\usart\usart.c
 
 src\asf\sam\drivers\wdt\wdt.c
@@ -79,6 +81,8 @@ src\main_full.c
 src\my_blink.c
 
 src\ParTest.c
+
+src\rtt_test0.c
 
 src\serial.c
 

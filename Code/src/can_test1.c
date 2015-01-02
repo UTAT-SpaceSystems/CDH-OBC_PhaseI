@@ -149,7 +149,6 @@ void reset_mailbox_conf(can_mb_conf_t *p_mailbox)
 	p_mailbox->ul_datah = 0;
 }
 
-
 /************************************************************************/
 /*                 SEND A 'COMMAND' FROM CAN0 TO CAN1		            */
 /************************************************************************/
@@ -325,6 +324,8 @@ int can_test1(void)
 	/* A response is then sent from CAN1 to CAN0 */
 	
 	//command_out();
+	
+	/* test_2 checks the producer-consumer model that will be used for HK */
 	test_2();		
 	
 	/* Disable CAN0 Controller */

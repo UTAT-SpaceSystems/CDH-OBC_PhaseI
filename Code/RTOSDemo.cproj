@@ -465,6 +465,12 @@
     <None Include="src\asf\sam\drivers\pmc\sleep.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="src\asf\sam\drivers\rtt\rtt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\rtt\rtt.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\asf\sam\drivers\usart\usart.c">
       <SubType>compile</SubType>
     </Compile>
@@ -695,6 +701,12 @@
       <Link>my_blink.c</Link>
     </Compile>
     <Compile Include="src\ParTest.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\rtt_test0.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\rtt_test0.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\serial.c">
@@ -1072,6 +1084,7 @@
     <Folder Include="src\asf\sam\drivers\can\" />
     <Folder Include="src\asf\sam\drivers\pio\" />
     <Folder Include="src\asf\sam\drivers\pmc\" />
+    <Folder Include="src\asf\sam\drivers\rtt\" />
     <Folder Include="src\asf\sam\drivers\usart\" />
     <Folder Include="src\asf\sam\drivers\wdt\" />
     <Folder Include="src\asf\sam\utils\" />

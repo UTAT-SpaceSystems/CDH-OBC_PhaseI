@@ -130,6 +130,7 @@ src/serial.d src/serial.o: ../src/serial.c \
  ../src/asf/common/services/clock/sam3x/pll.h \
  ../src/asf/sam/drivers/usart/usart.h ../src/asf/sam/drivers/wdt/wdt.h \
  ../src/asf/sam/drivers/pio/pio_handler.h \
+ ../src/asf/sam/drivers/rtt/rtt.h \
  ../src/Common-Demo-Source/include/demo_serial.h
 
 ../src/asf/thirdparty/FreeRTOS/include/FreeRTOS.h:
@@ -405,5 +406,7 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 ../src/asf/sam/drivers/wdt/wdt.h:
 
 ../src/asf/sam/drivers/pio/pio_handler.h:
+
+../src/asf/sam/drivers/rtt/rtt.h:
 
 ../src/Common-Demo-Source/include/demo_serial.h:

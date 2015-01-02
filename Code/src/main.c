@@ -54,7 +54,11 @@ All rights reserved
 *
 *	12/24/2014		Included can_test1.h which corresponds to program choice can_test1.
 *
-*	12/27/2014		PROGRAM_CHOICE is currently 4 => can_test1.
+*	12/27/2014		PROGRAM_CHOICE is currently 4 => can_test1().
+*
+*	12/31/2014		Added rtt.c and rtt.h to the project which shall be used for the purpose of housekeeping.
+*
+*	01/01/2015		PROGRAM_CHOICE is currently 5 => rtt().
 *
 *	DESCRIPTION:
 *	This is the 'main' file for our program which will run on the OBC.
@@ -75,7 +79,7 @@ All rights reserved
 #include "FreeRTOS.h"
 #include "task.h"
 
-/* Standard demo includes - just needed for the LED (ParTest) initialisation
+/* Standard demo includes - just needed for the LED (ParTest) initialization
 function. */
 #include "partest.h"
 
@@ -88,14 +92,18 @@ function. */
 /* can_test1 includes */
 #include "can_test1.h"
 
+/* rtt_test0 includes */
+#include "rtt_test0.h"
+
 /*
 * my_blink() is used when PROGRAM_CHOICE is set to 1.
 * main_blinky() is used when PROGRAM_CHOICE is set to 2.
 * can_test() is used when PROGRAM_CHOICE is set to 3.
 * can_test1() is used when PROGRAM_CHOICE is set to 4.
-* main_full() is used when PROGRAM_CHOICE is set to 5.
+* rtt_test0() is used when PROGRAM_CHOICE is set to 5
+* main_full() is used when PROGRAM_CHOICE is set to 6.
 */
-#define PROGRAM_CHOICE	4
+#define PROGRAM_CHOICE	5
 /*-----------------------------------------------------------*/
 
 /*
@@ -149,6 +157,11 @@ int main(void)
 	}
 #endif
 #if PROGRAM_CHOICE == 5
+	{
+		rtt_test0();
+	}
+#endif
+#if PROGRAM_CHOICE == 6
 	{
 		main_full();
 	}

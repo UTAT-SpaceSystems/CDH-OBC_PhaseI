@@ -72,5 +72,8 @@ All rights reserved
 // From module: pio_handler support enabled
 #include <pio_handler.h>
 
+// From module: RTT - Real-Time Timer
+#include <asf/sam/drivers/rtt/rtt.h>
+
 #endif // ASF_H
 
