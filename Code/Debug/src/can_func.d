@@ -1,4 +1,4 @@
-src/can_test0.d src/can_test0.o: ../src/can_test0.c ../src/can_test0.h \
+src/can_func.d src/can_func.o: ../src/can_func.c ../src/can_func.h \
  ../src/asf/sam/components/can/sn65hvd234.h \
  ../src/asf/common/boards/board.h ../src/asf/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
@@ -120,7 +120,7 @@ src/can_test0.d src/can_test0.o: ../src/can_test0.c ../src/can_test0.h \
  ../src/asf/common/services/clock/sam3x/pll.h ../src/config/conf_board.h \
  ../src/asf/sam/drivers/pio/pio.h
 
-../src/can_test0.h:
+../src/can_func.h:
 
 ../src/asf/sam/components/can/sn65hvd234.h:
 

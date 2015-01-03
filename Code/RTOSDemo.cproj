@@ -181,7 +181,7 @@
     <OverrideVtor>false</OverrideVtor>
     <OverrideVtorValue>exception_table</OverrideVtorValue>
     <eraseonlaunchrule>1</eraseonlaunchrule>
-    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterface>SWD</avrtoolinterface>
     <avrtool>com.atmel.avrdbg.tool.samice</avrtool>
     <com_atmel_avrdbg_tool_samice>
       <ToolType>com.atmel.avrdbg.tool.samice</ToolType>
@@ -193,9 +193,9 @@
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
-        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceName>SWD</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>4000000</JtagDbgClock>
+          <JtagDbgClock>0</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
@@ -546,10 +546,10 @@
     <Compile Include="src\asf\thirdparty\FreeRTOS\timers.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\can_test1.c">
+    <Compile Include="src\can_func.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\can_test1.h">
+    <Compile Include="src\can_func.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Common-Demo-Source\BlockQ.c">
@@ -685,6 +685,9 @@
       <SubType>compile</SubType>
     </None>
     <Compile Include="src\FreeRTOSConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\housekeep_test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\main.c">

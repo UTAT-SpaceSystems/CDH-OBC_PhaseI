@@ -60,6 +60,11 @@ All rights reserved
 *
 *	01/01/2015		PROGRAM_CHOICE is currently 5 => rtt().
 *
+*	01/02/2015		can_initialize is now a part of prvSetupHardware()
+*
+*					WE ARE NO LONGER RUNNING MAIN.C() LIKE A TEST HUB. We are now trying to create a mock
+*					version of the final software.
+*
 *	DESCRIPTION:
 *	This is the 'main' file for our program which will run on the OBC.
 *	main.c is called from the reset handler and will initialize hardware,
@@ -90,20 +95,23 @@ function. */
 //#include "can_test0.h"		Comment out the other can_tests to use the one you want.
 
 /* can_test1 includes */
-#include "can_test1.h"
+//#include "can_test1.h"
 
 /* rtt_test0 includes */
 #include "rtt_test0.h"
+
+#include "can_func.h"
 
 /*
 * my_blink() is used when PROGRAM_CHOICE is set to 1.
 * main_blinky() is used when PROGRAM_CHOICE is set to 2.
 * can_test() is used when PROGRAM_CHOICE is set to 3.
 * can_test1() is used when PROGRAM_CHOICE is set to 4.
-* rtt_test0() is used when PROGRAM_CHOICE is set to 5
-* main_full() is used when PROGRAM_CHOICE is set to 6.
+* rtt_test0() is used when PROGRAM_CHOICE is set to 5.
+* housekeep_test() is used when PROGRAM_CHOICE is set to 6.
+* main_full() is used when PROGRAM_CHOICE is set to 7.
 */
-#define PROGRAM_CHOICE	5
+#define PROGRAM_CHOICE	6
 /*-----------------------------------------------------------*/
 
 /*
@@ -115,6 +123,7 @@ extern void main_blinky(void);
 extern void main_full(void);
 extern void my_blink(void);
 //extern void can_test(void);
+extern void housekeep_test(void);
 
 /* Prototypes for the standard FreeRTOS callback/hook functions implemented
 within this file. */
@@ -162,6 +171,14 @@ int main(void)
 	}
 #endif
 #if PROGRAM_CHOICE == 6
+{
+	my_blink();
+	housekeep_test();
+	vTaskStartScheduler();
+	while(1) { }
+}
+#endif
+#if PROGRAM_CHOICE == 7
 	{
 		main_full();
 	}
@@ -189,6 +206,10 @@ static void prvSetupHardware(void)
 	/* Perform any configuration necessary to use the ParTest LED output
 	functions. */
 	vParTestInitialise();
+	
+	/* Initialize CAN-related registers and functions for tests and operation */
+	can_initialize();
+	
 }
 /*-----------------------------------------------------------*/
 

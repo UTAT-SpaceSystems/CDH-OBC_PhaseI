@@ -46,7 +46,7 @@ src\asf\thirdparty\FreeRTOS\tasks.c
 
 src\asf\thirdparty\FreeRTOS\timers.c
 
-src\can_test1.c
+src\can_func.c
 
 src\Common-Demo-Source\BlockQ.c
 
@@ -71,6 +71,8 @@ src\Common-Demo-Source\PollQ.c
 src\Common-Demo-Source\recmutex.c
 
 src\Common-Demo-Source\semtest.c
+
+src\housekeep_test.c
 
 src\main.c
 

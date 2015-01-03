@@ -113,7 +113,7 @@ C_SRCS +=  \
 ../src/asf/thirdparty/FreeRTOS/queue.c \
 ../src/asf/thirdparty/FreeRTOS/tasks.c \
 ../src/asf/thirdparty/FreeRTOS/timers.c \
-../src/can_test1.c \
+../src/can_func.c \
 ../src/Common-Demo-Source/BlockQ.c \
 ../src/Common-Demo-Source/blocktim.c \
 ../src/Common-Demo-Source/comtest.c \
@@ -126,6 +126,7 @@ C_SRCS +=  \
 ../src/Common-Demo-Source/PollQ.c \
 ../src/Common-Demo-Source/recmutex.c \
 ../src/Common-Demo-Source/semtest.c \
+../src/housekeep_test.c \
 ../src/main.c \
 ../src/main_blinky.c \
 ../src/main_full.c \
@@ -164,7 +165,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.o \
 src/asf/thirdparty/FreeRTOS/queue.o \
 src/asf/thirdparty/FreeRTOS/tasks.o \
 src/asf/thirdparty/FreeRTOS/timers.o \
-src/can_test1.o \
+src/can_func.o \
 src/Common-Demo-Source/BlockQ.o \
 src/Common-Demo-Source/blocktim.o \
 src/Common-Demo-Source/comtest.o \
@@ -177,6 +178,7 @@ src/Common-Demo-Source/integer.o \
 src/Common-Demo-Source/PollQ.o \
 src/Common-Demo-Source/recmutex.o \
 src/Common-Demo-Source/semtest.o \
+src/housekeep_test.o \
 src/main.o \
 src/main_blinky.o \
 src/main_full.o \
@@ -208,7 +210,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.o \
 src/asf/thirdparty/FreeRTOS/queue.o \
 src/asf/thirdparty/FreeRTOS/tasks.o \
 src/asf/thirdparty/FreeRTOS/timers.o \
-src/can_test1.o \
+src/can_func.o \
 src/Common-Demo-Source/BlockQ.o \
 src/Common-Demo-Source/blocktim.o \
 src/Common-Demo-Source/comtest.o \
@@ -221,6 +223,7 @@ src/Common-Demo-Source/integer.o \
 src/Common-Demo-Source/PollQ.o \
 src/Common-Demo-Source/recmutex.o \
 src/Common-Demo-Source/semtest.o \
+src/housekeep_test.o \
 src/main.o \
 src/main_blinky.o \
 src/main_full.o \
@@ -252,7 +255,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.d \
 src/asf/thirdparty/FreeRTOS/queue.d \
 src/asf/thirdparty/FreeRTOS/tasks.d \
 src/asf/thirdparty/FreeRTOS/timers.d \
-src/can_test1.d \
+src/can_func.d \
 src/Common-Demo-Source/BlockQ.d \
 src/Common-Demo-Source/blocktim.d \
 src/Common-Demo-Source/comtest.d \
@@ -265,6 +268,7 @@ src/Common-Demo-Source/integer.d \
 src/Common-Demo-Source/PollQ.d \
 src/Common-Demo-Source/recmutex.d \
 src/Common-Demo-Source/semtest.d \
+src/housekeep_test.d \
 src/main.d \
 src/main_blinky.d \
 src/main_full.d \
@@ -296,7 +300,7 @@ src/asf/thirdparty/FreeRTOS/portable/MemMang/heap_4.d \
 src/asf/thirdparty/FreeRTOS/queue.d \
 src/asf/thirdparty/FreeRTOS/tasks.d \
 src/asf/thirdparty/FreeRTOS/timers.d \
-src/can_test1.d \
+src/can_func.d \
 src/Common-Demo-Source/BlockQ.d \
 src/Common-Demo-Source/blocktim.d \
 src/Common-Demo-Source/comtest.d \
@@ -309,6 +313,7 @@ src/Common-Demo-Source/integer.d \
 src/Common-Demo-Source/PollQ.d \
 src/Common-Demo-Source/recmutex.d \
 src/Common-Demo-Source/semtest.d \
+src/housekeep_test.d \
 src/main.d \
 src/main_blinky.d \
 src/main_full.d \
@@ -332,6 +337,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

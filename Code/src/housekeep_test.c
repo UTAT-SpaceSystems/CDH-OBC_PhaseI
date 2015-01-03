@@ -28,7 +28,12 @@
 	*	DEVELOPMENT HISTORY:		
 	*	12/31/2014			Created
 	*
-	*	DESCRIPTION:
+	*	01/02/2015			Added CAN functionality and made use of vTaskDelayUntil(...) in order to
+	*						implement a delay in between housekeeping requests.
+	*
+	*	DESCRIPTION:	
+	*
+	*	This file is being used to house the housekeeping task.
 	*	
  */
 
@@ -46,6 +51,9 @@
 /* Common demo includes. */
 #include "partest.h"
 
+/* CAN Function includes */
+#include "can_func.h"
+
 /* Priorities at which the tasks are created. */
 #define HouseKeep_TASK_PRIORITY		( tskIDLE_PRIORITY + 2 )		// Lower the # means lower the priority
 
@@ -56,12 +64,14 @@ functionality. */
 /*-----------------------------------------------------------*/
 
 /*
- * The tasks as described in the comments at the top of this file.
+ * Functions Prototypes.
  */
 static void prvHouseKeepTask( void *pvParameters );
+void housekeep_test(void);
 
-void my_blink( void );
-
+/************************************************************************/
+/*			TEST FUNCTION FOR HOUSEKEEPIN                               */
+/************************************************************************/
 void housekeep_test( void )
 {
 		
@@ -73,29 +83,62 @@ void housekeep_test( void )
 					( void * ) HK_PARAMETER, /* The parameter passed to the task - just to check the functionality. */
 					HouseKeep_TASK_PRIORITY, 		/* The priority assigned to the task. */
 					NULL );									/* The task handle is not required, so NULL is passed. */
-		 
-		/* Start the tasks and timer running. */
-		vTaskStartScheduler();
-
 	/* If all is well, the scheduler will now be running, and the following
 	line will never be reached.  If the following line does execute, then
 	there was insufficient FreeRTOS heap memory available for the idle and/or
 	timer tasks	to be created.  See the memory management section on the
 	FreeRTOS web site for more details. */
-	for( ;; );
 }
 /*-----------------------------------------------------------*/
 
+/************************************************************************/
+/*				HOUSEKEEPING TASK                                       */
+/************************************************************************/
 static void prvHouseKeepTask( void *pvParameters )
 {
-	configASSERT( ( ( unsigned long ) pvParameters ) == TurnOn_PARAMETER );
-	
-	/* Set up timer to be used for Housekeeping */
-	
+	configASSERT( ( ( unsigned long ) pvParameters ) == HK_PARAMETER );
+	TickType_t	xLastWakeTime;
+	const TickType_t xTimeToWait = 15;	//Number entered here corresponds to the number of ticks we should wait.
+	/* As SysTick will be approx. 1kHz, Num = 1000 * 60 * 60 = 1 hour.*/
 	
 	for( ;; )
 	{
+			/* Init CAN0 Mailbox 3 to Producer Mailbox. */
+			/* The subsystems should be doing this part */
+			reset_mailbox_conf(&can0_mailbox);
+			can0_mailbox.ul_mb_idx = 3;				// Mailbox 3
+			can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;
+			can0_mailbox.ul_id_msk = 0;
+			can0_mailbox.ul_id = CAN_MID_MIDvA(NODE0_ID);
+			can_mailbox_init(CAN0, &can0_mailbox);
 
+			/* Prepare the response information when subsystem receives a remote frame. */
+			can0_mailbox.ul_datal = HK_TRANSMIT;
+			can0_mailbox.ul_datah = CAN_MSG_DUMMY_DATA;
+			can0_mailbox.uc_length = MAX_CAN_FRAME_DATA_LEN;
+			can_mailbox_write(CAN0, &can0_mailbox);
+
+			can_global_send_transfer_cmd(CAN0, CAN_TCR_MB3);
+
+			/* Init CAN1 Mailbox 3 to Consumer Mailbox. It sends a remote frame and waits for an answer. */
+			/* Here we will ask for HK from each subsystem sequentially, and wait for a response in between each */
+			reset_mailbox_conf(&can1_mailbox);
+			can1_mailbox.ul_mb_idx = 3;				// Mailbox 3
+			can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;
+			can1_mailbox.uc_tx_prio = 9;
+			can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;
+			can1_mailbox.ul_id = CAN_MID_MIDvA(NODE0_ID);
+			can_mailbox_init(CAN1, &can1_mailbox);
+
+			/* Enable CAN1 mailbox 3 interrupt. */
+			can_enable_interrupt(CAN1, CAN_IER_MB3);
+
+			can_global_send_transfer_cmd(CAN1, CAN_TCR_MB3);
+			
+			/* The remote request has been sent out and will be dealt with by the CAN_Handler */
+			xLastWakeTime = xTaskGetTickCount();
+		
+			vTaskDelayUntil(&xLastWakeTime, xTimeToWait);
 	}
 }
 /*-----------------------------------------------------------*/

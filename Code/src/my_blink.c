@@ -78,15 +78,8 @@ static void prvTurnOffTask( void *pvParameters );
  */
 void my_blink( void );
 
-//static QueueHandle_t xQueue1 = NULL;
-//static QueueHandle_t xQueue2 = NULL;
-
-
 void my_blink( void )
-{
-		//xQueue1 = xQueueCreate( mainQUEUE_LENGTH, sizeof( unsigned long ) );		// Create Queue1
-		//xQueue2 = xQueueCreate( mainQUEUE_LENGTH, sizeof( unsigned long ) );		// Create Queue2
-		
+{		
 		/* Start the two tasks as described in the comments at the top of this
 		file. */
 		xTaskCreate( prvTurnOnTask,					/* The function that implements the task. */
@@ -102,39 +95,21 @@ void my_blink( void )
 					 ( void * ) TurnOff_PARAMETER, 
 					 TurnOn_TASK_PRIORITY, 
 					 NULL );
-					 
-		/* Start the tasks and timer running. */
-		vTaskStartScheduler();
-
 	/* If all is well, the scheduler will now be running, and the following
 	line will never be reached.  If the following line does execute, then
 	there was insufficient FreeRTOS heap memory available for the idle and/or
 	timer tasks	to be created.  See the memory management section on the
 	FreeRTOS web site for more details. */
-	for( ;; );
 }
 /*-----------------------------------------------------------*/
 
 static void prvTurnOnTask( void *pvParameters )
 {
-	//const unsigned long send_int = 100UL;	// Send  = '1'
-	//unsigned long led_flag = 100UL;
-	//const TickType_t  del = 3;
-	
 	// Check the task parameter is as expected. 
 	configASSERT( ( ( unsigned long ) pvParameters ) == TurnOn_PARAMETER );
 
 	for( ;; )
 	{
-		//if(led_flag == 100UL)
-			//{
-				//xQueueSend( xQueue2, &send_int, 0U );
-				//led_flag = 0U;
-				//vParTestToggleLED( 0 );
-				//vTaskDelay(del);
-			//}
-			//
-		//xQueueReceive( xQueue1, &led_flag, portMAX_DELAY );
 		gpio_set_pin_high(LED3_GPIO);
 	}
 }
@@ -142,26 +117,11 @@ static void prvTurnOnTask( void *pvParameters )
 
 static void prvTurnOffTask( void *pvParameters )
 {
-	//const unsigned long send_int = 100UL;	// Send  = '1'
-	//unsigned long led_flag = 0UL;
-	//const TickType_t  del = 3;
-	
 	// Check the task parameter is as expected. 
 	configASSERT( ( ( unsigned long ) pvParameters ) == TurnOff_PARAMETER );
 
 	for( ;; )
 	{
-		//if(led_flag == 100UL)
-		//{
-			//{
-				//vTaskDelay(del);
-				//xQueueSend( xQueue1, &send_int, 0U );
-				//led_flag = 0U;
-				//vParTestToggleLED( 0 );
-			//}
-			//
-		//}
-		//xQueueReceive( xQueue2, &led_flag, portMAX_DELAY );
 		gpio_set_pin_low(LED3_GPIO);
 	}
 }
