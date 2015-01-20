@@ -19,6 +19,9 @@
 	*	ASSUMPTIONS, CONSTRAINTS, CONDITIONS:	None
 	*
 	*	NOTES:	 
+	*	Remember that configTICK_RATE_HZ in FreeRTOSConfig.h is currently set to 10 Hz and
+	*	so when that is set to a new value, the amount of ticks in between housekeeping will
+	*	have to be adjusted.
 	*	
 	*	REQUIREMENTS/ FUNCTIONAL SPECIFICATION REFERENCES:			
 	*	New tasks should be written to use as much of CMSIS as possible. The ASF and 
@@ -93,6 +96,7 @@ void housekeep_test( void )
 
 /************************************************************************/
 /*				HOUSEKEEPING TASK                                       */
+/*			Comment as to what this does								*/
 /************************************************************************/
 static void prvHouseKeepTask( void *pvParameters )
 {

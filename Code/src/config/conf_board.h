@@ -38,8 +38,6 @@ All rights reserved
 *
 *	12/20/2014			I added lines 52-54 in order to allow CAN0 and CAN1 pins to be initialized.
 *
-*
-*
 */
 
 #ifndef CONF_BOARD_H_INCLUDED

@@ -20,6 +20,9 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 *
 *	NOTES:
 *	BOARD_REV_A and BOARD_REV_B have different pin settings.
+*	
+*	Important: even though the file name is sam3x_ek, I am actually using pin definitions which 
+*	pertain to the Arduino DUE.
 *
 *	REQUIREMENTS/ FUNCTIONAL SPECIFICATION REFERENCES:
 *	None.

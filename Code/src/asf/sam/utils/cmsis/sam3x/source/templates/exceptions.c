@@ -21,12 +21,6 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 *	ASSUMPTIONS, CONSTRAINTS, CONDITIONS:	None.
 *
 *	NOTES:
-*	If you write an exception handler somewhere else, then you have to assign it here
-*	so that it is actually used. 
-*	
-*	ADDITIONALLY, YOU CAN WRITE INTERRUPT HANDLERS HERE, OR
-*	OR INCLUDE THEM HERE.
-*
 *	The exception handler has weak aliases.
 *	As they are weak aliases, any function with the same name will override
 *   this definition.

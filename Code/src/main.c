@@ -137,6 +137,12 @@ void vApplicationTickHook(void);
 /* See the documentation page for this demo on the FreeRTOS.org web site for
 full information - including hardware setup requirements. */
 
+/************************************************************************/
+/*								MAIN                                    */
+/*		This is the function that is called when the reset handler		*/
+/*		is triggered.													*/
+/************************************************************************/
+
 int main(void)
 {
 	/* Prepare the hardware to run this demo. */
