@@ -147,7 +147,7 @@ int main(void)
 		gpio_toggle_pin(LED2_GPIO);
 
 		my_blink();
-		//main_blinky();
+		// main_blinky();
 	}
 #endif
 #if PROGRAM_CHOICE == 2
@@ -171,12 +171,13 @@ int main(void)
 	}
 #endif
 #if PROGRAM_CHOICE == 6
-{
-	my_blink();
-	housekeep_test();
-	vTaskStartScheduler();
-	while(1) { }
-}
+	{
+		my_blink();
+		housekeep_test();
+		vTaskStartScheduler();
+		/* @non-terminating@ */
+		while(1) { }
+	}
 #endif
 #if PROGRAM_CHOICE == 7
 	{
@@ -184,12 +185,16 @@ int main(void)
 	}
 #endif
 	{
+		/* @non-terminating@ */
 		while (1){}
 	}
 	return 0;
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Initializes the hardware.	
+ */
 static void prvSetupHardware(void)
 {
 	extern void SystemCoreClockUpdate(void);
@@ -213,6 +218,7 @@ static void prvSetupHardware(void)
 }
 /*-----------------------------------------------------------*/
 
+
 void vApplicationMallocFailedHook(void)
 {
 	/* vApplicationMallocFailedHook() will only be called if
@@ -226,6 +232,7 @@ void vApplicationMallocFailedHook(void)
 	to query the size of free heap space that remains (although it does not
 	provide information on how the remaining heap might be fragmented). */
 	taskDISABLE_INTERRUPTS();
+	/* @non-terminating@ */
 	for (;;);
 }
 /*-----------------------------------------------------------*/
@@ -244,6 +251,9 @@ void vApplicationIdleHook(void)
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief 
+ */
 void vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName)
 {
 	(void)pcTaskName;
@@ -253,6 +263,7 @@ void vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName)
 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
 	function is called if a stack overflow is detected. */
 	taskDISABLE_INTERRUPTS();
+	/* @non-terminating@ */
 	for (;;);
 }
 /*-----------------------------------------------------------*/
@@ -269,6 +280,9 @@ void vApplicationTickHook(void)
 
 /*---------------CUSTOM INTERRUPT HANDLERS-------------------*/
 
+/**
+ * \brief Clears watchdog timer status bit and restarts the counter.
+ */
 void WDT_Handler(void)
 {
 	/* Clear status bit to acknowledge interrupt by dummy read. */

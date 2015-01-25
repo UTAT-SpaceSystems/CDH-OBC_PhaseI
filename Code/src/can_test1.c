@@ -70,6 +70,9 @@ void CAN1_Handler(void)
 /* Default Interrupt Handler for CAN0								    */
 /************************************************************************/
 
+/**
+ * \brief Default interrupt handler for CAN 0.
+ */
 void CAN0_Handler(void)
 {
 	uint32_t ul_status;
@@ -99,6 +102,12 @@ void CAN0_Handler(void)
 /* Performs a prescribed action depending on the message received       */
 /************************************************************************/
 
+/**
+ * \brief Decoodes the CAN message and performs a prescribed action depending on 
+ * the message received.
+ * @param *controller:  	CAN sending controller
+ * @param *p_mailbox:		CAN mailbox structure of sending controller
+ */
 void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 {
 	//assert(g_ul_recv_status);		// Only decode if a message was received.	***Asserts here.
@@ -134,6 +143,10 @@ void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 /* RESET MAILBOX CONFIGURE STRUCTURE                                    */
 /************************************************************************/
 
+/**
+ * \brief Resets the mailbox configure structure.  
+ * @param *p_mailbox:		Mailbox structure that will be reset. 
+ */
 void reset_mailbox_conf(can_mb_conf_t *p_mailbox)
 {
 	p_mailbox->ul_mb_idx = 0;
@@ -153,6 +166,9 @@ void reset_mailbox_conf(can_mb_conf_t *p_mailbox)
 /*                 SEND A 'COMMAND' FROM CAN0 TO CAN1		            */
 /************************************************************************/
 
+/**
+ * \brief Sends a 'command' from CAN0 to CAN1
+ */
 void command_out(void)
 {
 	pio_toggle_pin(LED0_GPIO);
@@ -189,6 +205,7 @@ void command_out(void)
 	/* Send out the information in the mailbox. */
 	can_global_send_transfer_cmd(CAN1, CAN_TCR_MB0);
 
+	/* potentially @non-terminating@ */
 	while (!g_ul_recv_status) {
 	}
 
@@ -198,6 +215,9 @@ void command_out(void)
 /*				RESPOND TO THE COMMAND FROM CAN0 AND SEND TO CAN1       */
 /************************************************************************/
 
+/**
+ * \brief Responds to he command from CAN0 and sends to CAN1
+ **/
 void command_in(void)
 {
 	pio_toggle_pin(LED0_GPIO);
@@ -237,7 +257,7 @@ void command_in(void)
 
 	/* Send out the information in the mailbox. */
 	can_global_send_transfer_cmd(CAN0, CAN_TCR_MB1);
-
+	/* potentially @non-terminating@ */
 	while (!g_ul_recv_status) {
 	}
 }
@@ -247,6 +267,10 @@ void command_in(void)
 /*			PRODUCER-CONSUMER MODEL TO BE USED FOR HOUSEKEEPING         */
 /************************************************************************/
 
+/**
+ * Tests the functionality of the producer-consumer model
+ * to be used for housekeeping.
+ */
 void test_2(void)
 {
 	can_reset_all_mailbox(CAN0);
@@ -281,10 +305,15 @@ void test_2(void)
 	can_enable_interrupt(CAN1, CAN_IER_MB3);
 
 	can_global_send_transfer_cmd(CAN1, CAN_TCR_MB3);
+	/* potentially @non-terminating@ */
 	while (!g_ul_recv_status) {
 	}
 }
 
+/**
+ * \brief Initializes CAN0 and CAN1, then runs test_2. CAN0 and CAN1
+ * are disabled afterwards.
+ */
 int can_test1(void)
 {
 	uint32_t ul_sysclk;
@@ -343,6 +372,7 @@ int can_test1(void)
 	
 	else { }
 
+	/* @non-terminating@ */
 	while (1) {	}
 	return 0;
 }

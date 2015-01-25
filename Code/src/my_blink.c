@@ -78,16 +78,19 @@ static void prvTurnOffTask( void *pvParameters );
  */
 void my_blink( void );
 
+/**
+ * \brief Toggles the state of the LED pin high/low.		
+ */
 void my_blink( void )
 {		
 		/* Start the two tasks as described in the comments at the top of this
 		file. */
-		xTaskCreate( prvTurnOnTask,					/* The function that implements the task. */
-					"ON", 									/* The text name assigned to the task - for debug only as it is not used by the kernel. */
-					configMINIMAL_STACK_SIZE, 				/* The size of the stack to allocate to the task. */
-					( void * ) TurnOn_PARAMETER, /* The parameter passed to the task - just to check the functionality. */
-					TurnOn_TASK_PRIORITY, 		/* The priority assigned to the task. */
-					NULL );									/* The task handle is not required, so NULL is passed. */
+		xTaskCreate( prvTurnOnTask,						/* The function that implements the task. */
+					"ON", 								/* The text name assigned to the task - for debug only as it is not used by the kernel. */
+					configMINIMAL_STACK_SIZE, 			/* The size of the stack to allocate to the task. */
+					( void * ) TurnOn_PARAMETER, 		/* The parameter passed to the task - just to check the functionality. */
+					TurnOn_TASK_PRIORITY, 				/* The priority assigned to the task. */
+					NULL );								/* The task handle is not required, so NULL is passed. */
 
 		xTaskCreate( prvTurnOffTask, 
 					 "OFF", 
@@ -103,11 +106,16 @@ void my_blink( void )
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Sets LED pin to high.
+ * @param *pvParameters:	
+ */
 static void prvTurnOnTask( void *pvParameters )
 {
 	// Check the task parameter is as expected. 
 	configASSERT( ( ( unsigned long ) pvParameters ) == TurnOn_PARAMETER );
 
+	/* @non-terminating@ */
 	for( ;; )
 	{
 		gpio_set_pin_high(LED3_GPIO);
@@ -115,11 +123,16 @@ static void prvTurnOnTask( void *pvParameters )
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Sets LED pin to low.
+ * @param *pvParameters:
+ */
 static void prvTurnOffTask( void *pvParameters )
 {
 	// Check the task parameter is as expected. 
 	configASSERT( ( ( unsigned long ) pvParameters ) == TurnOff_PARAMETER );
 
+	/* @non-terminating@ */
 	for( ;; )
 	{
 		gpio_set_pin_low(LED3_GPIO);

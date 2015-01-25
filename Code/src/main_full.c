@@ -134,9 +134,13 @@ static void prvCheckTimerCallback( TimerHandle_t xTimer );
 
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Creates all the demo/test tasks and starts the timer to check the 
+ * execution of the tasks. 	
+ */
 void main_full( void )
 {
-TimerHandle_t xCheckTimer = NULL;
+	TimerHandle_t xCheckTimer = NULL;
 
 	/* Start all the other standard demo/test tasks.  The have not particular
 	functionality, but do demonstrate how to use the FreeRTOS API and test the
@@ -180,14 +184,20 @@ TimerHandle_t xCheckTimer = NULL;
 	insufficient FreeRTOS heap memory available for the idle and/or timer tasks
 	to be created.  See the memory management section on the FreeRTOS web site
 	for more details. */
+	/* @non-terminating@ */
 	for( ;; );
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Checks the demo tasks for errors. Execution time is decreased
+ * is decreased if an error is found.
+ * @param xTime:		Software timer handle.
+ */
 static void prvCheckTimerCallback( TimerHandle_t xTimer )
 {
-static long lChangedTimerPeriodAlready = pdFALSE;
-unsigned long ulErrorFound = pdFALSE;
+	static long lChangedTimerPeriodAlready = pdFALSE;
+	unsigned long ulErrorFound = pdFALSE;
 
 	/* Check all the demo tasks (other than the flash tasks) to ensure
 	they are all still running, and that none have detected an error. */

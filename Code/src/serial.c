@@ -5,7 +5,7 @@ All rights reserved
 *	FILE NAME:		serial.c
 *
 *	PURPOSE:
-*	Basic interrupt driven port sriver for usart1.
+*	Basic interrupt driven port driver for usart1.
 *
 *	FILE REFERENCES:	FreeRTOS.h, queue.h, semphr.h, comtest2.h, asf.h, demo_serial.h
 *
@@ -76,17 +76,17 @@ static QueueHandle_t xCharsForTx;
  */
 xComPortHandle xSerialPortInitMinimal( unsigned long ulWantedBaud, unsigned portBASE_TYPE uxQueueLength )
 {
-uint32_t ulChar;
-xComPortHandle xReturn;
-const sam_usart_opt_t xUSARTSettings =
-{
-	ulWantedBaud,
-	US_MR_CHRL_8_BIT,
-	US_MR_PAR_NO,
-	US_MR_NBSTOP_1_BIT,
-	US_MR_CHMODE_NORMAL,
-	0 /* Only used in IrDA mode. */
-};
+	uint32_t ulChar;
+	xComPortHandle xReturn;
+	const sam_usart_opt_t xUSARTSettings =
+	{
+		ulWantedBaud,
+		US_MR_CHRL_8_BIT,
+		US_MR_PAR_NO,
+		US_MR_NBSTOP_1_BIT,
+		US_MR_CHMODE_NORMAL,
+		0 /* Only used in IrDA mode. */
+	};
 
 	/* Create the queues used to hold Rx/Tx characters. */
 	xRxedChars = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
@@ -130,6 +130,14 @@ const sam_usart_opt_t xUSARTSettings =
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Receives the next character from the buffer.
+ * @param xPort:			Port handle (not required)
+ * @param *pcRxedChar:		
+ * @param xBlockTime:		Length of time to read from buffer.
+ * @return:					True if a character is read from buffer,
+ *							False if none were available.		
+ */
 signed portBASE_TYPE xSerialGetChar( xComPortHandle pxPort, signed char *pcRxedChar, TickType_t xBlockTime )
 {
 	/* The port handle is not required as this driver only supports one port. */
@@ -148,9 +156,15 @@ signed portBASE_TYPE xSerialGetChar( xComPortHandle pxPort, signed char *pcRxedC
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Sends a string character by character through the serial port.
+ * @param pxPort:			Port handle (not required)
+ * @param const *pcString:	String that will be sent across.
+ * @param usStringLength:	Length of the string (not required)
+ */
 void vSerialPutString( xComPortHandle pxPort, const signed char * const pcString, unsigned short usStringLength )
 {
-signed char *pxNext;
+	signed char *pxNext;
 
 	/* A couple of parameters that this port does not use. */
 	( void ) usStringLength;
@@ -172,9 +186,15 @@ signed char *pxNext;
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Sends a character through the serial port using a queue. 
+ * @param pxPort:			Port handle (not requierd)
+ * @param cOutChar:			Character that will be sent out
+ * @param xBlockTime:
+ */
 signed portBASE_TYPE xSerialPutChar( xComPortHandle pxPort, signed char cOutChar, TickType_t xBlockTime )
 {
-signed portBASE_TYPE xReturn;
+	signed portBASE_TYPE xReturn;
 
 	/* This simple example only supports one port. */
 	( void ) pxPort;
@@ -210,10 +230,10 @@ void vSerialClose( xComPortHandle xPort )
  */
 void USART0_Handler( void )
 {
-portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-uint8_t ucChar;
-uint32_t ulChar;
-uint32_t ulUSARTStatus, ulUSARTMask;
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	uint8_t ucChar;
+	uint32_t ulChar;
+	uint32_t ulUSARTStatus, ulUSARTMask;
 
 	ulUSARTStatus = usart_get_status( serUSART_PORT );
 	ulUSARTMask = usart_get_interrupt_mask( serUSART_PORT );
