@@ -208,6 +208,7 @@
           </JtagSelectedDeviceIndexInChain>
           <JtagDaisyChainDevices>
           </JtagDaisyChainDevices>
+          <SwdClock>4000000</SwdClock>
         </InterfaceProperties>
         <JlinkConfigFile>C:\Users\Keenan\Documents\GitHub\CDH-OBC\Code\jlink.config</JlinkConfigFile>
       </ToolOptions>
@@ -396,6 +397,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\stk600_test0.c">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\asf\common\services\clock\genclk.h">
       <SubType>compile</SubType>
     </None>

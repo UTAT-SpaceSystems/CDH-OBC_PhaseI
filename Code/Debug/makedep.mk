@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\stk600_test0.c
+
 src\asf\common\services\clock\sam3x\sysclk.c
 
 src\asf\common\utils\interrupt\interrupt_sam_nvic.c

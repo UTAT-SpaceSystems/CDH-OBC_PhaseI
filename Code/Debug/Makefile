@@ -91,6 +91,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../src/stk600_test0.c \
 ../src/asf/common/services/clock/sam3x/sysclk.c \
 ../src/asf/common/utils/interrupt/interrupt_sam_nvic.c \
 ../src/asf/common/utils/stdio/read.c \
@@ -143,6 +144,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+src/stk600_test0.o \
 src/asf/common/services/clock/sam3x/sysclk.o \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.o \
 src/asf/common/utils/stdio/read.o \
@@ -188,6 +190,7 @@ src/rtt_test0.o \
 src/serial.o
 
 OBJS_AS_ARGS +=  \
+src/stk600_test0.o \
 src/asf/common/services/clock/sam3x/sysclk.o \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.o \
 src/asf/common/utils/stdio/read.o \
@@ -233,6 +236,7 @@ src/rtt_test0.o \
 src/serial.o
 
 C_DEPS +=  \
+src/stk600_test0.d \
 src/asf/common/services/clock/sam3x/sysclk.d \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
 src/asf/common/utils/stdio/read.d \
@@ -278,6 +282,7 @@ src/rtt_test0.d \
 src/serial.d
 
 C_DEPS_AS_ARGS +=  \
+src/stk600_test0.d \
 src/asf/common/services/clock/sam3x/sysclk.d \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
 src/asf/common/utils/stdio/read.d \
@@ -424,6 +429,15 @@ LINKER_SCRIPT_DEP+=  \
 
 
 
+
+
+src/%.o: ../src/%.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 4.8.4
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DBOARD=SAM3X_EK -D__SAM3X8H__  -I"../src" -I"../src/asf/common/applications/user_application/sam3x8h_sam3x_ek" -I"../src/asf/common/boards" -I"../src/asf/common/services/gpio" -I"../src/asf/common/utils" -I"../src/asf/sam/boards" -I"../src/asf/sam/boards/sam3x_ek" -I"../src/asf/sam/drivers/pio" -I"../src/asf/sam/utils" -I"../src/asf/sam/utils/cmsis/sam3x/include" -I"../src/asf/sam/utils/cmsis/sam3x/source/templates" -I"../src/asf/sam/utils/header_files" -I"../src/asf/sam/utils/preprocessor" -I"../src/asf/thirdparty/CMSIS/Include" -I"../src/config" -I"../src/asf/thirdparty/FreeRTOS/include" -I"../src/asf/thirdparty/FreeRTOS/portable/GCC/ARM_CM3" -I"../src/Common-Demo-Source/include" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\CMSIS\Include" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\Device\ATMEL" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\Device\ATMEL\sam3xa\include" -I"../src/asf/sam/drivers/pmc" -I"../src/asf/common/services/clock" -I"../src/asf/sam/drivers/usart" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL"  -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -Wall -Wextra -std=gnu99 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -Dprintf=iprintf -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 src/asf/common/services/clock/sam3x/%.o: ../src/asf/common/services/clock/sam3x/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 4.8.4
@@ -530,13 +544,6 @@ src/asf/thirdparty/FreeRTOS/portable/GCC/ARM_CM3/%.o: ../src/asf/thirdparty/Free
 	
 
 src/asf/thirdparty/FreeRTOS/portable/MemMang/%.o: ../src/asf/thirdparty/FreeRTOS/portable/MemMang/%.c
-	@echo Building file: $<
-	@echo Invoking: ARM/GNU C Compiler : 4.8.4
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DBOARD=SAM3X_EK -D__SAM3X8H__  -I"../src" -I"../src/asf/common/applications/user_application/sam3x8h_sam3x_ek" -I"../src/asf/common/boards" -I"../src/asf/common/services/gpio" -I"../src/asf/common/utils" -I"../src/asf/sam/boards" -I"../src/asf/sam/boards/sam3x_ek" -I"../src/asf/sam/drivers/pio" -I"../src/asf/sam/utils" -I"../src/asf/sam/utils/cmsis/sam3x/include" -I"../src/asf/sam/utils/cmsis/sam3x/source/templates" -I"../src/asf/sam/utils/header_files" -I"../src/asf/sam/utils/preprocessor" -I"../src/asf/thirdparty/CMSIS/Include" -I"../src/config" -I"../src/asf/thirdparty/FreeRTOS/include" -I"../src/asf/thirdparty/FreeRTOS/portable/GCC/ARM_CM3" -I"../src/Common-Demo-Source/include" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\CMSIS\Include" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\Device\ATMEL" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\Device\ATMEL\sam3xa\include" -I"../src/asf/sam/drivers/pmc" -I"../src/asf/common/services/clock" -I"../src/asf/sam/drivers/usart" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL"  -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -Wall -Wextra -std=gnu99 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -Dprintf=iprintf -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-src/%.o: ../src/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 4.8.4
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DBOARD=SAM3X_EK -D__SAM3X8H__  -I"../src" -I"../src/asf/common/applications/user_application/sam3x8h_sam3x_ek" -I"../src/asf/common/boards" -I"../src/asf/common/services/gpio" -I"../src/asf/common/utils" -I"../src/asf/sam/boards" -I"../src/asf/sam/boards/sam3x_ek" -I"../src/asf/sam/drivers/pio" -I"../src/asf/sam/utils" -I"../src/asf/sam/utils/cmsis/sam3x/include" -I"../src/asf/sam/utils/cmsis/sam3x/source/templates" -I"../src/asf/sam/utils/header_files" -I"../src/asf/sam/utils/preprocessor" -I"../src/asf/thirdparty/CMSIS/Include" -I"../src/config" -I"../src/asf/thirdparty/FreeRTOS/include" -I"../src/asf/thirdparty/FreeRTOS/portable/GCC/ARM_CM3" -I"../src/Common-Demo-Source/include" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\CMSIS\Include" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\Device\ATMEL" -I"C:\devtools\Atmel\Atmel Studio 6.0\extensions\Atmel\ARMGCC\3.3.1.83\ARMSupportFiles\Device\ATMEL\sam3xa\include" -I"../src/asf/sam/drivers/pmc" -I"../src/asf/common/services/clock" -I"../src/asf/sam/drivers/usart" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include" -I"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL"  -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -Wall -Wextra -std=gnu99 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -Dprintf=iprintf -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

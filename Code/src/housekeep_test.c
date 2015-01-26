@@ -1,6 +1,5 @@
 /*
-    FreeRTOS V8.1.2 - Copyright (C) 2014 Real Time Engineers Ltd.
-    All rights reserved
+    Author: Keenan Burnett
 
 	***********************************************************************
 	*	FILE NAME:		housekeep_test.c
@@ -8,7 +7,7 @@
 	*	PURPOSE:		
 	*	This file will be used to initialize and test the housekeeping task.
 	*
-	*	FILE REFERENCES:	stdio.h, FreeRTOS.h, task.h, partest.h, asf.h
+	*	FILE REFERENCES:	stdio.h, FreeRTOS.h, task.h, partest.h, asf.h, can_func.h
 	*
 	*	EXTERNAL VARIABLES:
 	*

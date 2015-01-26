@@ -1,6 +1,8 @@
 /*
 FreeRTOS V8.1.2 - Copyright (C) 2014 Real Time Engineers Ltd.
 All rights reserved
+
+Author: Keenan Burnett
 ***********************************************************************
 *	FILE NAME:		main.c
 *
@@ -62,8 +64,15 @@ All rights reserved
 *
 *	01/02/2015		can_initialize is now a part of prvSetupHardware()
 *
-*					WE ARE NO LONGER RUNNING MAIN.C() LIKE A TEST HUB. We are now trying to create a mock
-*					version of the final software.
+*	01/03/2015		housekeep_test.c has been added to the project and is now working. CAN can now be considered
+*					operation as regular messages and remote frames can be sent between controllers 0 and 1.
+*
+*					PROGRAM_CHOICE is currently 6 => housekeep_test()
+*
+*	01/24/2015		stk600_test0.c has now been added to the project in order to test communication with
+*					our newly acquired development board which we are using to simulate a subsystem MCU.
+*
+*					PROGRAM_CHOICE is currently 7 => stk600_test0()
 *
 *	DESCRIPTION:
 *	This is the 'main' file for our program which will run on the OBC.
@@ -109,9 +118,10 @@ function. */
 * can_test1() is used when PROGRAM_CHOICE is set to 4.
 * rtt_test0() is used when PROGRAM_CHOICE is set to 5.
 * housekeep_test() is used when PROGRAM_CHOICE is set to 6.
-* main_full() is used when PROGRAM_CHOICE is set to 7.
+* stk600_test0() is used when PROGRAM_CHOICE is set to 7.
+* main_full() is used when PROGRAM_CHOICE is set to 8.
 */
-#define PROGRAM_CHOICE	6
+#define PROGRAM_CHOICE	7
 /*-----------------------------------------------------------*/
 
 /*
@@ -124,6 +134,7 @@ extern void main_full(void);
 extern void my_blink(void);
 //extern void can_test(void);
 extern void housekeep_test(void);
+extern void stk600_test0(void);
 
 /* Prototypes for the standard FreeRTOS callback/hook functions implemented
 within this file. */
@@ -177,14 +188,19 @@ int main(void)
 	}
 #endif
 #if PROGRAM_CHOICE == 6
-{
-	my_blink();
-	housekeep_test();
-	vTaskStartScheduler();
-	while(1) { }
-}
+	{
+		my_blink();
+		housekeep_test();
+		vTaskStartScheduler();
+		while(1) { }
+	}
 #endif
 #if PROGRAM_CHOICE == 7
+	{
+		stk600_test0();
+	}
+#endif
+#if PROGRAM_CHOICE == 8
 	{
 		main_full();
 	}

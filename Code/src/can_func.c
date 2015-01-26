@@ -1,6 +1,5 @@
 /*
-    FreeRTOS V8.1.2 - Copyright (C) 2014 Real Time Engineers Ltd.
-    All rights reserved
+    Author: Keenan Burnett
 
 	***********************************************************************
 	*	FILE NAME:		can_func.c
@@ -106,24 +105,24 @@ void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 	uint32_t ul_data_incom = p_mailbox->ul_datal;
 	if(controller == CAN0)
 		pio_toggle_pin(LED0_GPIO);
-	else
+	if(controller == CAN1)
 		pio_toggle_pin(LED1_GPIO);
 	if (ul_data_incom == COMMAND_OUT)
 		pio_toggle_pin(LED0_GPIO);
 	if (ul_data_incom == COMMAND_IN)
 		pio_toggle_pin(LED1_GPIO);
 
-	else if ((ul_data_incom == COMMAND_IN) & (controller == CAN0)) 
+	if ((ul_data_incom == COMMAND_IN) & (controller == CAN0)) 
 	{
 		// Command has been received, respond.
 		pio_toggle_pin(LED0_GPIO);
-		command_in();
+		//command_in();
 	}
-	else if ((ul_data_incom == COMMAND_OUT) & (controller == CAN1))
+	if ((ul_data_incom == COMMAND_OUT) & (controller == CAN1))
 	{
 		pio_toggle_pin(LED2_GPIO);	// LED2 indicates the response to the command
 	}								// has been received.
-	else if ((ul_data_incom == HK_TRANSMIT) & (controller == CAN1))
+	if ((ul_data_incom == HK_TRANSMIT) & (controller == CAN1))
 	{
 		pio_toggle_pin(LED3_GPIO);	// LED3 indicates housekeeping has been received.
 	}
@@ -150,7 +149,7 @@ void reset_mailbox_conf(can_mb_conf_t *p_mailbox)
 }
 
 /************************************************************************/
-/*                 SEND A 'COMMAND' FROM CAN0 TO CAN1		            */
+/*                 SEND A 'COMMAND' FROM CAN1 TO CAN0		            */
 /************************************************************************/
 
 void command_out(void)

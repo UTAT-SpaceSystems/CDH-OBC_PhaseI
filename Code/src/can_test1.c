@@ -1,7 +1,6 @@
 /*
-    FreeRTOS V8.1.2 - Copyright (C) 2014 Real Time Engineers Ltd.
-    All rights reserved
-
+	Author: Keenan Burnett
+ 
 	***********************************************************************
 	*	FILE NAME:		can_test1.c
 	*
