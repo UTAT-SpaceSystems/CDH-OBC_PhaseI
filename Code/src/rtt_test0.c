@@ -52,8 +52,12 @@ volatile uint8_t g_uc_alarmed;
 /************************************************************************/
 /*					RTT CONFIGURATION FUNCTION				            */
 /*		Configure the RTT to generate a one second tick, which triggers */
-/*		the RTTINC interrupt.
+/*		the RTTINC interrupt.											*/
 /************************************************************************/
+/**
+ * \brief Configure the RTT to generate a one second tick, which triggers
+ * the RTTINC interrupt.
+ */
 static void configure_rtt(void)
 {
 	uint32_t ul_previous_time;
@@ -75,6 +79,9 @@ static void configure_rtt(void)
 /************************************************************************/
 /*					REAL-TIME TIMER INTERRUPT HANDLER                   */
 /************************************************************************/
+/**
+ * \brief Real-time timer interrupt handler.
+ */
 void RTT_Handler(void)
 {
 	uint32_t ul_status;
@@ -95,6 +102,10 @@ void RTT_Handler(void)
 	}
 }
 
+/**
+ * \brief Test the functionality of the RTT handler
+ * @return:			Default zero		
+ */
 int rtt_test0(void)
 {
 	/* Configure RTT */
@@ -108,7 +119,9 @@ int rtt_test0(void)
 	*  RTT Alarm interrupt will go off however many seconds are defined by
 	*  g_ul_new_alarm.
 	*/
-	while(1) { }
+
+	/* @non-terminating@ */
+	while(1) { } 
 		
 	return 0;
 }

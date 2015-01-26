@@ -48,7 +48,9 @@ Copyright (C) 2012 Atmel Corporation. All rights reserved.
 #include "gpio.h"
 #include "asf.h"
 
-
+/**
+ * \brief Initialize board watchdog timer and pins.
+ */
 void board_init(void)
 {
 	uint32_t wdt_mode, wdt_timer;	// Values used in initializing WDT.
