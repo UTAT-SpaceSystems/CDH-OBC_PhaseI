@@ -61,9 +61,12 @@ static const uint32_t ulLED[] = { LED2_GPIO, LED0_GPIO, LED1_GPIO };
 
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Initializes the LEDs in the off state.
+ */ 
 void vParTestInitialise( void )
 {
-unsigned long ul;
+	unsigned long ul;
 
 	for( ul = 0; ul < partestNUM_LEDS; ul++ )
 	{
@@ -74,6 +77,15 @@ unsigned long ul;
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Sets the LED state to high or low.
+ * @param uxLED:		Number corresponding to a particular LED. If
+ 						this value equals the inverted LED pin, then
+ 						xValue, and thus the expected functionality, 
+ 						will be inverted.
+ * @param xValue:		Boolean value - true to turn LED on,
+ *									  - false to turn LED off
+ */
 void vParTestSetLED( unsigned portBASE_TYPE uxLED, signed portBASE_TYPE xValue )
 {
 	if( uxLED < partestNUM_LEDS )
@@ -104,7 +116,10 @@ void vParTestSetLED( unsigned portBASE_TYPE uxLED, signed portBASE_TYPE xValue )
 	}
 }
 /*-----------------------------------------------------------*/
-
+/**
+ * \brief Toggles the state of the LED.
+ * @param uxLED:		Number corresponding to a particular LED
+ */
 void vParTestToggleLED( unsigned portBASE_TYPE uxLED )
 {
 	if( uxLED < partestNUM_LEDS )

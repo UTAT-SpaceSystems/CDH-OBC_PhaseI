@@ -47,6 +47,9 @@
 #include "gpio.h"
 #include "ioport.h"
 
+/**
+ * \brief Initializes the board watchdog timer (by disabling it) and configures the pins.
+ */
 void board_init(void)
 {
 #ifndef CONF_BOARD_KEEP_WATCHDOG_AT_INIT

@@ -72,19 +72,22 @@ static void prvHouseKeepTask( void *pvParameters );
 void housekeep_test(void);
 
 /************************************************************************/
-/*			TEST FUNCTION FOR HOUSEKEEPIN                               */
+/*			TEST FUNCTION FOR HOUSEKEEPING                              */
 /************************************************************************/
+/**
+ * \brief Tests the housekeeping task.
+ */
 void housekeep_test( void )
 {
 		
 		/* Start the two tasks as described in the comments at the top of this
 		file. */
 		xTaskCreate( prvHouseKeepTask,					/* The function that implements the task. */
-					"ON", 									/* The text name assigned to the task - for debug only as it is not used by the kernel. */
-					configMINIMAL_STACK_SIZE, 				/* The size of the stack to allocate to the task. */
-					( void * ) HK_PARAMETER, /* The parameter passed to the task - just to check the functionality. */
-					HouseKeep_TASK_PRIORITY, 		/* The priority assigned to the task. */
-					NULL );									/* The task handle is not required, so NULL is passed. */
+					"ON", 								/* The text name assigned to the task - for debug only as it is not used by the kernel. */
+					configMINIMAL_STACK_SIZE, 			/* The size of the stack to allocate to the task. */
+					( void * ) HK_PARAMETER, 			/* The parameter passed to the task - just to check the functionality. */
+					HouseKeep_TASK_PRIORITY, 			/* The priority assigned to the task. */
+					NULL );								/* The task handle is not required, so NULL is passed. */
 	/* If all is well, the scheduler will now be running, and the following
 	line will never be reached.  If the following line does execute, then
 	there was insufficient FreeRTOS heap memory available for the idle and/or
@@ -97,6 +100,10 @@ void housekeep_test( void )
 /*				HOUSEKEEPING TASK                                       */
 /*			Comment as to what this does								*/
 /************************************************************************/
+/**
+ * \brief Performs the housekeeping task.
+ * @param *pvParameters:
+ */
 static void prvHouseKeepTask( void *pvParameters )
 {
 	configASSERT( ( ( unsigned long ) pvParameters ) == HK_PARAMETER );
@@ -104,6 +111,7 @@ static void prvHouseKeepTask( void *pvParameters )
 	const TickType_t xTimeToWait = 15;	//Number entered here corresponds to the number of ticks we should wait.
 	/* As SysTick will be approx. 1kHz, Num = 1000 * 60 * 60 = 1 hour.*/
 	
+	/* @non-terminating@ */
 	for( ;; )
 	{
 			/* Init CAN0 Mailbox 3 to Producer Mailbox. */

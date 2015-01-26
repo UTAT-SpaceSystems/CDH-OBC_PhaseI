@@ -117,6 +117,10 @@ static QueueHandle_t xQueue = NULL;
 
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Tests the queue and its send/receive functionality by 
+ * toggling an LED.
+ */
 void main_blinky( void )
 {
 	/* Create the queue. */
@@ -144,21 +148,27 @@ void main_blinky( void )
 	there was insufficient FreeRTOS heap memory available for the idle and/or
 	timer tasks	to be created.  See the memory management section on the
 	FreeRTOS web site for more details. */
+	/* @non-terminating@ */
 	for( ;; );
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Sends an LED toggle task to the queue. Task is held in a blocked state
+ *  before sending for a period of time specified by mainQUEUE_SEND_FREQUENCY_MS.
+ * @param *pvParameters:	
+ */
 static void prvQueueSendTask( void *pvParameters )
 {
-TickType_t xNextWakeTime;
-const unsigned long ulValueToSend = 100UL;
+	TickType_t xNextWakeTime;
+	const unsigned long ulValueToSend = 100UL;
 
 	/* Check the task parameter is as expected. */
 	configASSERT( ( ( unsigned long ) pvParameters ) == mainQUEUE_SEND_PARAMETER );
 
 	/* Initialise xNextWakeTime - this only needs to be done once. */
 	xNextWakeTime = xTaskGetTickCount();
-
+	/* @non-terminating@ */
 	for( ;; )
 	{
 		/* Place this task in the blocked state until it is time to run again.
@@ -176,13 +186,18 @@ const unsigned long ulValueToSend = 100UL;
 }
 /*-----------------------------------------------------------*/
 
+/**
+ * \brief Listens to the queue for a task, and toggles the LED if
+ * the expected task is received.
+ * @param *pvParameters:
+ */
 static void prvQueueReceiveTask( void *pvParameters )
 {
-unsigned long ulReceivedValue;
+	unsigned long ulReceivedValue;
 
 	/* Check the task parameter is as expected. */
 	configASSERT( ( ( unsigned long ) pvParameters ) == mainQUEUE_RECEIVE_PARAMETER );
-
+	/* @non-terminating@ */
 	for( ;; )
 	{
 		/* Wait until something arrives in the queue - this task will block
