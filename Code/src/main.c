@@ -159,7 +159,7 @@ int main(void)
 	/* Prepare the hardware to run this demo. */
 	prvSetupHardware();
 
-#if PROGRAM_CHOICE == 1
+#if PROGRAM_CHOICE == 2
 	{
 		gpio_toggle_pin(LED2_GPIO);
 
