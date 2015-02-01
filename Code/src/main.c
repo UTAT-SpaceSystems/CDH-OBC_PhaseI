@@ -121,7 +121,7 @@ function. */
 * stk600_test0() is used when PROGRAM_CHOICE is set to 7.
 * main_full() is used when PROGRAM_CHOICE is set to 8.
 */
-#define PROGRAM_CHOICE	1
+#define PROGRAM_CHOICE	2
 /*-----------------------------------------------------------*/
 
 /*
@@ -159,7 +159,7 @@ int main(void)
 	/* Prepare the hardware to run this demo. */
 	prvSetupHardware();
 
-#if PROGRAM_CHOICE == 2
+#if PROGRAM_CHOICE == 1
 	{
 		gpio_toggle_pin(LED2_GPIO);
 
