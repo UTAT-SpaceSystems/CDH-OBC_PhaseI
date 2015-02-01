@@ -121,7 +121,7 @@ function. */
 * stk600_test0() is used when PROGRAM_CHOICE is set to 7.
 * main_full() is used when PROGRAM_CHOICE is set to 8.
 */
-#define PROGRAM_CHOICE	7
+#define PROGRAM_CHOICE	1
 /*-----------------------------------------------------------*/
 
 /*
@@ -164,7 +164,6 @@ int main(void)
 		gpio_toggle_pin(LED2_GPIO);
 
 		my_blink();
-		// main_blinky();
 	}
 #endif
 #if PROGRAM_CHOICE == 2
