@@ -241,6 +241,8 @@ void command_out(void)
 /*																		*/
 /*  The function will return 1 if the action was completed and 0 if not.*/
 /*	NOTE: a '1' does not indicate the transmission was successful.		*/
+/*																		*/
+/*	This function does not alter the can0_mailbox object.				*/
 /************************************************************************/
 
 uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRIORITY)

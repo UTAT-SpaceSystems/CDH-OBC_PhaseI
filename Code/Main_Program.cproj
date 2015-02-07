@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.2</ProjectVersion>
     <ProjectGuid>{1a1a7c6e-bd59-4e82-8371-7f51ae9a4bd9}</ProjectGuid>
-    <Name>$(MSBuildProjectName)</Name>
+    <Name>Main_Program</Name>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <AsfVersion>3.3.0</AsfVersion>

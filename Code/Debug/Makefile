@@ -332,9 +332,9 @@ src/ParTest.d \
 src/rtt_test0.d \
 src/serial.d
 
-OUTPUT_FILE_PATH +=RTOSDemo.elf
+OUTPUT_FILE_PATH +=Main_Program.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=RTOSDemo.elf
+OUTPUT_FILE_PATH_AS_ARGS +=Main_Program.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
@@ -596,14 +596,14 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: ARM/GNU Linker : 4.8.4
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -mthumb -Wl,-Map="RTOSDemo.map" -Wl,--start-group  -Wl,--end-group -Wl,--gc-sections -mcpu=cortex-m3 -T../src/asf/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld -Wl,--cref -Wl,--entry=Reset_Handler -mthumb  
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -mthumb -Wl,-Map="Main_Program.map" -Wl,--start-group  -Wl,--end-group -Wl,--gc-sections -mcpu=cortex-m3 -T../src/asf/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld -Wl,--cref -Wl,--entry=Reset_Handler -mthumb  
 	@echo Finished building target: $@
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O binary "RTOSDemo.elf" "RTOSDemo.bin"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "RTOSDemo.elf" "RTOSDemo.hex"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -j .eeprom --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0 --no-change-warnings -O binary "RTOSDemo.elf" "RTOSDemo.eep" || exit 0
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objdump.exe" -h -S "RTOSDemo.elf" > "RTOSDemo.lss"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature  "RTOSDemo.elf" "RTOSDemo.srec"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-size.exe" "RTOSDemo.elf"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O binary "Main_Program.elf" "Main_Program.bin"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "Main_Program.elf" "Main_Program.hex"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -j .eeprom --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0 --no-change-warnings -O binary "Main_Program.elf" "Main_Program.eep" || exit 0
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objdump.exe" -h -S "Main_Program.elf" > "Main_Program.lss"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature  "Main_Program.elf" "Main_Program.srec"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1437\arm-gnu-toolchain\bin\arm-none-eabi-size.exe" "Main_Program.elf"
 	
 	
 
@@ -615,5 +615,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER
 clean:
 	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
 	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "RTOSDemo.elf" "RTOSDemo.a" "RTOSDemo.hex" "RTOSDemo.bin" "RTOSDemo.lss" "RTOSDemo.eep" "RTOSDemo.map" "RTOSDemo.srec"
+	rm -rf "Main_Program.elf" "Main_Program.a" "Main_Program.hex" "Main_Program.bin" "Main_Program.lss" "Main_Program.eep" "Main_Program.map" "Main_Program.srec"
 	
