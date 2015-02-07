@@ -83,10 +83,10 @@ typedef struct {
 */		
 
 #define COMMAND_OUT					0X01010101
-#define COMMAND_IN					0x00001111
+#define COMMAND_IN					0x11111111
 #define HK_TRANSMIT					0x12345678
-#define CAN_MSG_DUMMY_DATA          0x55AAAA55
-#define DUMMY_COMMAND				0XAAAAAAAA
+#define CAN_MSG_DUMMY_DATA          0xFFFFFFFF
+#define DUMMY_COMMAND				0XFFFFFFFF
 
 #define NODE0_ID				10
 #define NODE1_ID				9
@@ -129,7 +129,7 @@ void can_initialize(void);
 uint32_t can_init_mailboxes(uint32_t x);
 void save_can_object(can_mb_conf_t *original, can_temp_t *temp);
 void restore_can_object(can_mb_conf_t *original, can_temp_t *temp);
-uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRIORITY);
+uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRIORITY);		// API Function.
 
 /*---------------------------------------------------------*/
 

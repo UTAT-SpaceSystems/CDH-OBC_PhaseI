@@ -461,12 +461,13 @@ uint32_t can_init_mailboxes(uint32_t x)
 	reset_mailbox_conf(&can1_mailbox);
 	can1_mailbox.ul_mb_idx = 0;
 	can1_mailbox.uc_obj_type = CAN_MB_RX_MODE;
-	can1_mailbox.ul_id_msk = CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
-	can1_mailbox.ul_id = NODE0_ID;			// The ID of CAN1 MB0 is currently NODE1_ID
+	can1_mailbox.ul_id_msk = 0; //CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
+	can1_mailbox.ul_id = NODE0_ID;			// The ID of CAN1 MB0 is currently NODE0_ID
 	can_mailbox_init(CAN1, &can1_mailbox);
 	
 	can_enable_interrupt(CAN1, CAN_IER_MB0);
 	
 	return 1;
 }
+	
 	
