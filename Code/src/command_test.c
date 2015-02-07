@@ -30,6 +30,8 @@
 	*	DEVELOPMENT HISTORY:		
 	*	02/01/2015		Created
 	*
+	*	02/06/2015		I managed to get the CAN API function send_command working.
+	*
 	*	DESCRIPTION:	
 	*
 	*	This file is being used to test our CAN commands API. This file is used to encapsulate a 

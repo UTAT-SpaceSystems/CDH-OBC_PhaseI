@@ -18,7 +18,7 @@
 	*
 	*	ASSUMPTIONS, CONSTRAINTS, CONDITIONS:	None
 	*
-	*	NOTES:	 
+	*	NOTES:	 READ THE COMMENTS WITHIN SEND_COMMAND()!!!
 	*	
 	*	REQUIREMENTS/ FUNCTIONAL SPECIFICATION REFERENCES:			
 	*	New tasks should be written to use as much of CMSIS as possible. The ASF and 
@@ -31,6 +31,10 @@
 	*	02/01/2015		The CAN handlers have been edited such that they save and restore 
 	*					their respective can objects before reading them. (Could this create
 	*					an infinite loop?)
+	*
+	*					I have finished debugging a CAN API function that I have written called
+	*					send_command(low, high, ID, PRIORITY), which will allow future developers
+	*					to write code involving CAN much more easily.
 	*
 	*	DESCRIPTION:	
 	*
@@ -245,6 +249,11 @@ uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRI
 	*  because the interrupt handlers should do that for us, and in the future only one
 	*  task will be allowed in a CAN mailbox at any point in the through the use of
 	*  mutex locks.
+	*
+	*  Another thing! Don't place this function in a for loop if you plan on using it to
+	*  send from the same mailbox over and over again, make sure to yield in between calls
+	*  if that is what you're trying to do. Also, be sure to release and acquire mutex locks
+	*  in between each use of the CAN resource.
 	*/
 	
 	
