@@ -74,6 +74,14 @@ Author: Keenan Burnett
 *
 *					PROGRAM_CHOICE is currently 7 => stk600_test0()
 *
+*	02/01/2015		Today I have been working on getting both sending and receiving to work between the STk600
+*					and the Arduino DUE.
+*
+*					I have created a new test file called command_test.c which I am using to test some CAN API 
+*					functions that I have written.
+*
+*					PROGRAM_CHOICE is now set to 8 in order to run command_test()
+*
 *	DESCRIPTION:
 *	This is the 'main' file for our program which will run on the OBC.
 *	main.c is called from the reset handler and will initialize hardware,
@@ -119,9 +127,10 @@ function. */
 * rtt_test0() is used when PROGRAM_CHOICE is set to 5.
 * housekeep_test() is used when PROGRAM_CHOICE is set to 6.
 * stk600_test0() is used when PROGRAM_CHOICE is set to 7.
-* main_full() is used when PROGRAM_CHOICE is set to 8.
+* command_test() is used when PROGRAM_CHOICE is set to 8
+* main_full() is used when PROGRAM_CHOICE is set to 9.
 */
-#define PROGRAM_CHOICE	2
+#define PROGRAM_CHOICE	8
 /*-----------------------------------------------------------*/
 
 /*
@@ -135,6 +144,7 @@ extern void my_blink(void);
 //extern void can_test(void);
 extern void housekeep_test(void);
 extern void stk600_test0(void);
+extern void command_test(void);
 
 /* Prototypes for the standard FreeRTOS callback/hook functions implemented
 within this file. */
@@ -162,8 +172,8 @@ int main(void)
 #if PROGRAM_CHOICE == 1
 	{
 		gpio_toggle_pin(LED2_GPIO);
-
 		my_blink();
+		vTaskStartScheduler();
 	}
 #endif
 #if PROGRAM_CHOICE == 2
@@ -191,10 +201,6 @@ int main(void)
 		my_blink();
 		housekeep_test();
 		vTaskStartScheduler();
-<<<<<<< HEAD
-=======
-		/* @non-terminating@ */
->>>>>>> 32a95fc39fcbcf2a72fbc089a1e5ed7d15d87ec2
 		while(1) { }
 	}
 #endif
@@ -204,12 +210,16 @@ int main(void)
 	}
 #endif
 #if PROGRAM_CHOICE == 8
+{
+	command_test();
+}
+#endif
+#if PROGRAM_CHOICE == 9
 	{
 		main_full();
 	}
 #endif
 	{
-		/* @non-terminating@ */
 		while (1){}
 	}
 	return 0;

@@ -2,10 +2,10 @@
     Author: Keenan Burnett
 
 	***********************************************************************
-	*	FILE NAME:		housekeep_test.c
+	*	FILE NAME:		command_test.c
 	*
 	*	PURPOSE:		
-	*	This file will be used to initialize and test the housekeeping task.
+	*	This file will be used to test commands with our CAN API.
 	*
 	*	FILE REFERENCES:	stdio.h, FreeRTOS.h, task.h, partest.h, asf.h, can_func.h
 	*
@@ -28,14 +28,15 @@
 	*	more portable.
 
 	*	DEVELOPMENT HISTORY:		
-	*	12/31/2014			Created
-	*
-	*	01/02/2015			Added CAN functionality and made use of vTaskDelayUntil(...) in order to
-	*						implement a delay in between housekeeping requests.
+	*	02/01/2015		Created
 	*
 	*	DESCRIPTION:	
 	*
-	*	This file is being used to house the housekeeping task.
+	*	This file is being used to test our CAN commands API. This file is used to encapsulate a 
+	*	test function called command_test(), which will create a task that will send out a can message
+	*	from CAN0 MB7 to CAN1 MB0 with the use of a CAN API function I have written send_can_command().
+	*
+	*	It will then delay 15 clock cycles and send the message again.
 	*	
  */
 
@@ -57,19 +58,19 @@
 #include "can_func.h"
 
 /* Priorities at which the tasks are created. */
-#define HouseKeep_TASK_PRIORITY		( tskIDLE_PRIORITY + 2 )		// Lower the # means lower the priority
+#define Command_TASK_PRIORITY		( tskIDLE_PRIORITY + 3 )		// Lower the # means lower the priority
 
 /* Values passed to the two tasks just to check the task parameter
 functionality. */
-#define HK_PARAMETER			( 0xABCD )
+#define COMMAND_PARAMETER			( 0xABCD )
 
 /*-----------------------------------------------------------*/
 
 /*
  * Functions Prototypes.
  */
-static void prvHouseKeepTask( void *pvParameters );
-void housekeep_test(void);
+static void prvCommandTask( void *pvParameters );
+void command_test(void);
 
 /************************************************************************/
 /*			TEST FUNCTION FOR HOUSEKEEPING                              */
@@ -77,79 +78,54 @@ void housekeep_test(void);
 /**
  * \brief Tests the housekeeping task.
  */
-void housekeep_test( void )
+void command_test( void )
 {
 		
 		/* Start the two tasks as described in the comments at the top of this
 		file. */
-		xTaskCreate( prvHouseKeepTask,					/* The function that implements the task. */
+		xTaskCreate( prvCommandTask,					/* The function that implements the task. */
 					"ON", 								/* The text name assigned to the task - for debug only as it is not used by the kernel. */
 					configMINIMAL_STACK_SIZE, 			/* The size of the stack to allocate to the task. */
-					( void * ) HK_PARAMETER, 			/* The parameter passed to the task - just to check the functionality. */
-					HouseKeep_TASK_PRIORITY, 			/* The priority assigned to the task. */
+					( void * ) COMMAND_PARAMETER, 			/* The parameter passed to the task - just to check the functionality. */
+					Command_TASK_PRIORITY, 			/* The priority assigned to the task. */
 					NULL );								/* The task handle is not required, so NULL is passed. */
+					
+		vTaskStartScheduler();
 	/* If all is well, the scheduler will now be running, and the following
 	line will never be reached.  If the following line does execute, then
 	there was insufficient FreeRTOS heap memory available for the idle and/or
 	timer tasks	to be created.  See the memory management section on the
 	FreeRTOS web site for more details. */
-	/* @non-terminating@ */
 }
 /*-----------------------------------------------------------*/
 
 /************************************************************************/
-/*				HOUSEKEEPING TASK                                       */
+/*				COMMAND TASK		                                    */
 /*			Comment as to what this does								*/
 /************************************************************************/
 /**
  * \brief Performs the housekeeping task.
  * @param *pvParameters:
  */
-static void prvHouseKeepTask( void *pvParameters )
+static void prvCommandTask( void *pvParameters )
 {
-	configASSERT( ( ( unsigned long ) pvParameters ) == HK_PARAMETER );
+	configASSERT( ( ( unsigned long ) pvParameters ) == COMMAND_PARAMETER );
 	TickType_t	xLastWakeTime;
 	const TickType_t xTimeToWait = 15;	//Number entered here corresponds to the number of ticks we should wait.
 	/* As SysTick will be approx. 1kHz, Num = 1000 * 60 * 60 = 1 hour.*/
 	
-	/* @non-terminating@ */
+	uint32_t low, high, ID, PRIORITY, x;
+	
+	low = DUMMY_COMMAND;
+	high = CAN_MSG_DUMMY_DATA;
+	ID = NODE1_ID;
+	PRIORITY = COMMAND_PRIO;
+	
+	/* @non-terminating@ */	
 	for( ;; )
 	{
-			/* Init CAN0 Mailbox 3 to Producer Mailbox. */
-			/* The subsystems should be doing this part */
-			reset_mailbox_conf(&can0_mailbox);
-			can0_mailbox.ul_mb_idx = 3;				// Mailbox 3
-			can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;
-			can0_mailbox.ul_id_msk = 0;
-			can0_mailbox.ul_id = CAN_MID_MIDvA(NODE0_ID);
-			can_mailbox_init(CAN0, &can0_mailbox);
-
-			/* Prepare the response information when subsystem receives a remote frame. */
-			can0_mailbox.ul_datal = HK_TRANSMIT;
-			can0_mailbox.ul_datah = CAN_MSG_DUMMY_DATA;
-			can0_mailbox.uc_length = MAX_CAN_FRAME_DATA_LEN;
-			can_mailbox_write(CAN0, &can0_mailbox);
-
-			can_global_send_transfer_cmd(CAN0, CAN_TCR_MB3);
-
-			/* Init CAN1 Mailbox 3 to Consumer Mailbox. It sends a remote frame and waits for an answer. */
-			/* Here we will ask for HK from each subsystem sequentially, and wait for a response in between each */
-			reset_mailbox_conf(&can1_mailbox);
-			can1_mailbox.ul_mb_idx = 3;				// Mailbox 3
-			can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;
-			can1_mailbox.uc_tx_prio = 9;
-			can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;
-			can1_mailbox.ul_id = CAN_MID_MIDvA(NODE0_ID);
-			can_mailbox_init(CAN1, &can1_mailbox);
-
-			/* Enable CAN1 mailbox 3 interrupt. */
-			can_enable_interrupt(CAN1, CAN_IER_MB3);
-
-			can_global_send_transfer_cmd(CAN1, CAN_TCR_MB3);
-			
-			/* The remote request has been sent out and will be dealt with by the CAN_Handler */
+			x = send_can_command(low, high, ID, PRIORITY);	//This is the CAN API function I have written for us to use.
 			xLastWakeTime = xTaskGetTickCount();
-		
 			vTaskDelayUntil(&xLastWakeTime, xTimeToWait);
 	}
 }

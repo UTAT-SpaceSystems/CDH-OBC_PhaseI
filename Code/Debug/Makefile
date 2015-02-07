@@ -91,6 +91,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../src/command_test.c \
 ../src/stk600_test0.c \
 ../src/asf/common/services/clock/sam3x/sysclk.c \
 ../src/asf/common/utils/interrupt/interrupt_sam_nvic.c \
@@ -144,6 +145,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+src/command_test.o \
 src/stk600_test0.o \
 src/asf/common/services/clock/sam3x/sysclk.o \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.o \
@@ -190,6 +192,7 @@ src/rtt_test0.o \
 src/serial.o
 
 OBJS_AS_ARGS +=  \
+src/command_test.o \
 src/stk600_test0.o \
 src/asf/common/services/clock/sam3x/sysclk.o \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.o \
@@ -236,6 +239,7 @@ src/rtt_test0.o \
 src/serial.o
 
 C_DEPS +=  \
+src/command_test.d \
 src/stk600_test0.d \
 src/asf/common/services/clock/sam3x/sysclk.d \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
@@ -282,6 +286,7 @@ src/rtt_test0.d \
 src/serial.d
 
 C_DEPS_AS_ARGS +=  \
+src/command_test.d \
 src/stk600_test0.d \
 src/asf/common/services/clock/sam3x/sysclk.d \
 src/asf/common/utils/interrupt/interrupt_sam_nvic.d \
@@ -342,6 +347,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

@@ -45,6 +45,24 @@
 #include "conf_clock.h"
 #include "pio.h"
 
+typedef struct {
+	uint32_t ul_mb_idx;
+	uint8_t uc_obj_type;  /**< Mailbox object type, one of the six different
+	                         objects. */
+	uint8_t uc_id_ver;    /**< 0 stands for standard frame, 1 stands for
+	                         extended frame. */
+	uint8_t uc_length;    /**< Received data length or transmitted data
+	                         length. */
+	uint8_t uc_tx_prio;   /**< Mailbox priority, no effect in receive mode. */
+	uint32_t ul_status;   /**< Mailbox status register value. */
+	uint32_t ul_id_msk;   /**< No effect in transmit mode. */
+	uint32_t ul_id;       /**< Received frame ID or the frame ID to be
+	                         transmitted. */
+	uint32_t ul_fid;      /**< Family ID. */
+	uint32_t ul_datal;
+	uint32_t ul_datah;
+} can_temp_t;
+
 
 /*		CURRENT PRIORITY LEVELS			
 	Note: ID and priority are two different things.
@@ -68,6 +86,7 @@
 #define COMMAND_IN					0x00001111
 #define HK_TRANSMIT					0x12345678
 #define CAN_MSG_DUMMY_DATA          0x55AAAA55
+#define DUMMY_COMMAND				0XAAAAAAAA
 
 #define NODE0_ID				10
 #define NODE1_ID				9
@@ -91,6 +110,12 @@ can_mb_conf_t can0_mailbox;
 /** CAN1 Transfer mailbox structure */
 can_mb_conf_t can1_mailbox;
 
+can_temp_t temp_mailbox_C0;
+can_temp_t temp_mailbox_C1;
+
+
+
+
 /** Receive status */
 //volatile uint32_t g_ul_recv_status = 0;
 
@@ -101,5 +126,10 @@ void reset_mailbox_conf(can_mb_conf_t *p_mailbox);
 void command_out(void);
 void command_in(void);
 void can_initialize(void);
+uint32_t can_init_mailboxes(uint32_t x);
+void save_can_object(can_mb_conf_t *original, can_temp_t *temp);
+void restore_can_object(can_mb_conf_t *original, can_temp_t *temp);
+uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRIORITY);
+
 /*---------------------------------------------------------*/
 

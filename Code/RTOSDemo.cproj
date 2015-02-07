@@ -208,7 +208,7 @@
           </JtagSelectedDeviceIndexInChain>
           <JtagDaisyChainDevices>
           </JtagDaisyChainDevices>
-          <SwdClock>4000000</SwdClock>
+          <SwdClock>32000</SwdClock>
         </InterfaceProperties>
         <JlinkConfigFile>C:\Users\Keenan\Documents\GitHub\CDH-OBC\Code\jlink.config</JlinkConfigFile>
       </ToolOptions>
@@ -397,6 +397,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\command_test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\stk600_test0.c">
       <SubType>compile</SubType>
     </Compile>

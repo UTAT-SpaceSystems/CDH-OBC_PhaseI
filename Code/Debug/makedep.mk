@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\command_test.c
+
 src\stk600_test0.c
 
 src\asf\common\services\clock\sam3x\sysclk.c

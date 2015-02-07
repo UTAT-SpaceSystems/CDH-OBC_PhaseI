@@ -28,6 +28,10 @@
 	*	DEVELOPMENT HISTORY:		
 	*	01/02/2015		Created.
 	*
+	*	02/01/2015		The CAN handlers have been edited such that they save and restore 
+	*					their respective can objects before reading them. (Could this create
+	*					an infinite loop?)
+	*
 	*	DESCRIPTION:	
 	*
 	*	This file is being used to house the housekeeping task.
@@ -44,7 +48,9 @@ volatile uint32_t g_ul_recv_status = 0;
 void CAN1_Handler(void)
 {
 	uint32_t ul_status;
-
+	/* Save the state of the can1_mailbox object */	
+	save_can_object(&can1_mailbox, &temp_mailbox_C1);	//Doesn't erase the CAN message.
+	
 	ul_status = can_get_status(CAN1);
 	if (ul_status & GLOBAL_MAILBOX_MASK) {
 		for (uint8_t i = 0; i < CANMB_NUMBER; i++) {
@@ -54,12 +60,13 @@ void CAN1_Handler(void)
 				can1_mailbox.ul_mb_idx = i;
 				can1_mailbox.ul_status = ul_status;
 				can_mailbox_read(CAN1, &can1_mailbox);
-				g_ul_recv_status = 1;
 				
-				// Decode CAN Message
+				/* Decode CAN Message */
 				decode_can_msg(&can1_mailbox, CAN1);
-				//assert(g_ul_recv_status); ***Implement assert here.
-				g_ul_recv_status = 0;
+				/*assert(g_ul_recv_status); ***Implement assert here.*/
+				
+				/* Restore the can0 mailbox object */
+				restore_can_object(&can1_mailbox, &temp_mailbox_C1);
 				break;
 			}
 		}
@@ -75,6 +82,8 @@ void CAN1_Handler(void)
 void CAN0_Handler(void)
 {
 	uint32_t ul_status;
+	/* Save the state of the can0_mailbox object */
+	save_can_object(&can0_mailbox, &temp_mailbox_C0);
 
 	ul_status = can_get_status(CAN0);
 	if (ul_status & GLOBAL_MAILBOX_MASK) {
@@ -90,6 +99,9 @@ void CAN0_Handler(void)
 				// Decode CAN Message
 				decode_can_msg(&can0_mailbox, CAN0);
 				//assert(g_ul_recv_status); ***implement assert here.
+				
+				/* Restore the can0 mailbox object */
+				restore_can_object(&can0_mailbox, &temp_mailbox_C0);
 				break;
 			}
 		}
@@ -102,7 +114,7 @@ void CAN0_Handler(void)
 /************************************************************************/
 
 /**
- * \brief Decoodes the CAN message and performs a prescribed action depending on 
+ * \brief Decodes the CAN message and performs a prescribed action depending on 
  * the message received.
  * @param *controller:  	CAN sending controller
  * @param *p_mailbox:		CAN mailbox structure of sending controller
@@ -120,18 +132,24 @@ void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 		pio_toggle_pin(LED0_GPIO);
 	if (ul_data_incom == COMMAND_IN)
 		pio_toggle_pin(LED1_GPIO);
+	if (ul_data_incom == DUMMY_COMMAND)
+		pio_toggle_pin(LED1_GPIO);
 
 	if ((ul_data_incom == COMMAND_IN) & (controller == CAN0)) 
 	{
 		// Command has been received, respond.
 		pio_toggle_pin(LED0_GPIO);
-		//command_in();
+		command_in();
 	}
 	if ((ul_data_incom == COMMAND_OUT) & (controller == CAN1))
 	{
 		pio_toggle_pin(LED2_GPIO);	// LED2 indicates the response to the command
 	}								// has been received.
 	if ((ul_data_incom == HK_TRANSMIT) & (controller == CAN1))
+	{
+		pio_toggle_pin(LED3_GPIO);	// LED3 indicates housekeeping has been received.
+	}
+	if ((ul_data_incom == DUMMY_COMMAND) & (controller == CAN1))
 	{
 		pio_toggle_pin(LED3_GPIO);	// LED3 indicates housekeeping has been received.
 	}
@@ -211,6 +229,57 @@ void command_out(void)
 }
 
 /************************************************************************/
+/*                 SEND A MESSAGE/COMMAND FROM CAN0				        */
+/*	This function will take in two 32 bit integers representing the high*/
+/*  bits and low bits of the message to be sent. It will then take in   */
+/*  the ID of the message to be sent and it's priority, the message will*/
+/*  then be sent out from CAN0 MB7.										*/
+/*																		*/
+/*  The function will return 1 if the action was completed and 0 if not.*/
+/*	NOTE: a '1' does not indicate the transmission was successful.		*/
+/************************************************************************/
+
+uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRIORITY)
+{	
+	/* We don't need to worry about saving and restoring the state of the can0_mailbox
+	*  because the interrupt handlers should do that for us, and in the future only one
+	*  task will be allowed in a CAN mailbox at any point in the through the use of
+	*  mutex locks.
+	*/
+	
+	
+	/* Save current can0_mailbox object */
+	can_temp_t temp_mailbox;
+	save_can_object(&can0_mailbox, &temp_mailbox);
+	
+	/* Init CAN0 Mailbox 7 to Transmit Mailbox. */	
+	/* CAN0 MB7 == COMMAND/MSG MB				*/
+	reset_mailbox_conf(&can0_mailbox);
+	can0_mailbox.ul_mb_idx = 7;			//Mailbox Number 7
+	can0_mailbox.uc_obj_type = CAN_MB_TX_MODE;
+	can0_mailbox.uc_tx_prio = 9;		//Transmission Priority (Can be Changed dynamically)
+	can0_mailbox.uc_id_ver = 0;
+	can0_mailbox.ul_id_msk = 0;
+	can_mailbox_init(CAN0, &can0_mailbox);
+
+	/* Write transmit information into mailbox. */
+	can0_mailbox.ul_id = NODE0_ID;			// ID of the message being sent.
+	can0_mailbox.ul_datal = low;
+	can0_mailbox.ul_datah = high;
+	can0_mailbox.uc_length = MAX_CAN_FRAME_DATA_LEN;
+	can_mailbox_write(CAN0, &can0_mailbox);
+
+	/* Send out the information in the mailbox. */
+	can_global_send_transfer_cmd(CAN0, CAN_TCR_MB7);
+	
+	/* Restore the can0_mailbox object */
+	restore_can_object(&can0_mailbox, &temp_mailbox);
+	
+	return 1;
+}
+
+
+/************************************************************************/
 /*				RESPOND TO THE COMMAND FROM CAN0 AND SEND TO CAN1       */
 /************************************************************************/
 
@@ -262,6 +331,57 @@ void command_in(void)
 	}
 }
 
+/************************************************************************/
+/*					SAVING CAN OBJECTS                                  */
+/*	This function will take in a mailbox object as the original pointer */
+/*  and save each of it's elements in a temporary can structure.        */
+/************************************************************************/
+
+void save_can_object(can_mb_conf_t *original, can_temp_t *temp)
+{
+	/*This function takes in a mailbox object as the original pointer*/
+	
+	
+	temp->ul_mb_idx		= original->ul_mb_idx;
+	temp->uc_obj_type	= original->uc_obj_type;
+	temp->uc_id_ver		= original->uc_id_ver;
+	temp->uc_length		= original->uc_length;
+	temp->uc_tx_prio	= original->uc_tx_prio;
+	temp->ul_status		= original->ul_status;
+	temp->ul_id_msk		= original->ul_id_msk;
+	temp->ul_id			= original->ul_id;
+	temp->ul_fid		= original->ul_fid;
+	temp->ul_datal		= original->ul_datal;
+	temp->ul_datah		= original->ul_datah;
+	
+	return;
+}
+
+/************************************************************************/
+/*					RESTORING CAN OBJECTS                               */
+/*	This function will take in a mailbox object as the original pointer */
+/*  and restore each of it's elements from a temporary can structure.   */
+/************************************************************************/
+
+void restore_can_object(can_mb_conf_t *original, can_temp_t *temp)
+{
+	/*This function takes in a mailbox object as the original pointer*/	
+	
+	original->ul_mb_idx		= temp->ul_mb_idx; 
+	original->uc_obj_type	= temp->uc_obj_type;
+	original->uc_id_ver		= temp->uc_id_ver;
+	original->uc_length		= temp->uc_length;
+	original->uc_tx_prio	= temp->uc_tx_prio;
+	original->ul_status		= temp->ul_status;
+	original->ul_id_msk		= temp->ul_id_msk;
+	original->ul_id			= temp->ul_id;
+	original->ul_fid		= temp->ul_fid;
+	original->ul_datal		= temp->ul_datal;
+	original->ul_datah		= temp->ul_datah;
+	
+	return;
+}
+
 /**
  * \brief Initializes and enables CAN0 & CAN1 tranceivers and clocks. 
  * CAN0/CAN1 mailboxes are reset and interrupts disabled.
@@ -269,6 +389,7 @@ void command_in(void)
 void can_initialize(void)
 {
 	uint32_t ul_sysclk;
+	uint32_t x = 1;
 
 	/* Initialize CAN0 Transceiver. */
 	sn65hvd234_set_rs(&can0_transceiver, PIN_CAN0_TR_RS_IDX);
@@ -301,8 +422,40 @@ void can_initialize(void)
 	
 	can_reset_all_mailbox(CAN0);
 	can_reset_all_mailbox(CAN1);
+	
+	/* Initialize the CAN0 & CAN1 mailboxes */
+	x = can_init_mailboxes(x); // Prevent Random PC jumps to this point.
+	//configASSERT(x);
+	
+	
 	}
 	return;
 }
-			
+
+uint32_t can_init_mailboxes(uint32_t x)
+{
+	/* Init CAN0 Mailbox 7 to Transmit Mailbox. */	
+	/* CAN0 MB7 == COMMAND/MSG MB				*/
+	//configASSERT(x);	//Check if this function was called naturally.
+	
+	reset_mailbox_conf(&can0_mailbox);
+	can0_mailbox.ul_mb_idx = 7;			//Mailbox Number 7
+	can0_mailbox.uc_obj_type = CAN_MB_TX_MODE;
+	can0_mailbox.uc_tx_prio = 5;		//Transmission Priority (Can be Changed dynamically)
+	can0_mailbox.uc_id_ver = 0;
+	can0_mailbox.ul_id_msk = 0;
+	can_mailbox_init(CAN0, &can0_mailbox);
+	
+	/* Init CAN1 Mailbox 0 to Reception Mailbox. */
+	reset_mailbox_conf(&can1_mailbox);
+	can1_mailbox.ul_mb_idx = 0;
+	can1_mailbox.uc_obj_type = CAN_MB_RX_MODE;
+	can1_mailbox.ul_id_msk = CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
+	can1_mailbox.ul_id = NODE0_ID;			// The ID of CAN1 MB0 is currently NODE1_ID
+	can_mailbox_init(CAN1, &can1_mailbox);
+	
+	can_enable_interrupt(CAN1, CAN_IER_MB0);
+	
+	return 1;
+}
 	
