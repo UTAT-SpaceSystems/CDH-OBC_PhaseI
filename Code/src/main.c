@@ -82,6 +82,11 @@ Author: Keenan Burnett
 *
 *					PROGRAM_CHOICE is now set to 8 in order to run command_test()
 *
+*	02/17/2015		Today I'm working on getting sending and receiving working between the STK600 and the Arduino DUE.
+*
+*					I am also working on getting housekeeping to work reliably with the subsystem micro which means
+*					getting remote messages working over the CAN bus (these already work between CAN0 and CAN1).
+*
 *	DESCRIPTION:
 *	This is the 'main' file for our program which will run on the OBC.
 *	main.c is called from the reset handler and will initialize hardware,

@@ -63,7 +63,6 @@ typedef struct {
 	uint32_t ul_datah;
 } can_temp_t;
 
-
 /*		CURRENT PRIORITY LEVELS			
 	Note: ID and priority are two different things.
 		  For the sake of simplicity, I am making them the same.
@@ -87,13 +86,16 @@ typedef struct {
 #define HK_TRANSMIT					0x12345678
 #define CAN_MSG_DUMMY_DATA          0xFFFFFFFF
 #define DUMMY_COMMAND				0XFFFFFFFF
+#define MSG_ACK						0xABABABAB
 
 #define NODE0_ID				10
 #define NODE1_ID				9
 
+#define SUB0_ID0				20
+#define SUB0_ID4				24
+
 #define COMMAND_PRIO			11
 #define HK_REQUEST_PRIO			9
-
 
 /** CAN frame max data length */
 #define MAX_CAN_FRAME_DATA_LEN      8
@@ -113,9 +115,6 @@ can_mb_conf_t can1_mailbox;
 can_temp_t temp_mailbox_C0;
 can_temp_t temp_mailbox_C1;
 
-
-
-
 /** Receive status */
 //volatile uint32_t g_ul_recv_status = 0;
 
@@ -130,6 +129,5 @@ uint32_t can_init_mailboxes(uint32_t x);
 void save_can_object(can_mb_conf_t *original, can_temp_t *temp);
 void restore_can_object(can_mb_conf_t *original, can_temp_t *temp);
 uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRIORITY);		// API Function.
-
 /*---------------------------------------------------------*/
 

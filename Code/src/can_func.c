@@ -36,6 +36,11 @@
 	*					send_command(low, high, ID, PRIORITY), which will allow future developers
 	*					to write code involving CAN much more easily.
 	*
+	*	02/17/2015		I have changed both send_command() and can_init() due to issues I encountered
+	*					with setting the ID of can mailboxes and communicating with the STK600. What I
+	*					found was that it is important to use CAN_MID_MIDvA(ID) wherever you set an ID
+	*					because this is the format that was used to set the STANDARD ID TAG.
+	*
 	*	DESCRIPTION:	
 	*
 	*	This file is being used to house the housekeeping task.
@@ -138,6 +143,8 @@ void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 		pio_toggle_pin(LED1_GPIO);
 	if (ul_data_incom == DUMMY_COMMAND)
 		pio_toggle_pin(LED1_GPIO);
+	if (ul_data_incom == MSG_ACK)
+		pio_toggle_pin(LED1_GPIO);
 
 	if ((ul_data_incom == COMMAND_IN) & (controller == CAN0)) 
 	{
@@ -156,6 +163,11 @@ void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 	if ((ul_data_incom == DUMMY_COMMAND) & (controller == CAN1))
 	{
 		pio_toggle_pin(LED3_GPIO);	// LED3 indicates housekeeping has been received.
+	}
+	
+	if ((ul_data_incom == MSG_ACK) & (controller == CAN1))
+	{
+		pio_toggle_pin(LED3_GPIO);	// LED3 indicates the reception of a return message.
 	}
 	return;
 }
@@ -274,8 +286,8 @@ uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRI
 	can_mailbox_init(CAN0, &can0_mailbox);
 
 	/* Write transmit information into mailbox. */
-	can0_mailbox.ul_id = NODE0_ID;			// ID of the message being sent.
-	can0_mailbox.ul_datal = low;
+	can0_mailbox.ul_id = CAN_MID_MIDvA(ID);			// ID of the message being sent,
+	can0_mailbox.ul_datal = low;					// shifted over to the standard frame position.
 	can0_mailbox.ul_datah = high;
 	can0_mailbox.uc_length = MAX_CAN_FRAME_DATA_LEN;
 	can_mailbox_write(CAN0, &can0_mailbox);
@@ -461,8 +473,8 @@ uint32_t can_init_mailboxes(uint32_t x)
 	reset_mailbox_conf(&can1_mailbox);
 	can1_mailbox.ul_mb_idx = 0;
 	can1_mailbox.uc_obj_type = CAN_MB_RX_MODE;
-	can1_mailbox.ul_id_msk = 0; //CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
-	can1_mailbox.ul_id = NODE0_ID;			// The ID of CAN1 MB0 is currently NODE0_ID
+	can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;	  // Compare the full 11 bits of the ID in both standard and extended.
+	can1_mailbox.ul_id = CAN_MID_MIDvA(NODE0_ID);					  // The ID of CAN1 MB0 is currently NODE0_ID (standard).
 	can_mailbox_init(CAN1, &can1_mailbox);
 	
 	can_enable_interrupt(CAN1, CAN_IER_MB0);
