@@ -176,7 +176,7 @@ void decode_can_msg(can_mb_conf_t *p_mailbox, Can* controller)
 	
 	if ((ul_data_incom == HK_RETURNED) & (controller == CAN0))
 	{
-		pio_toggle_pin(LED3_GPIO);	// LED3 indicates the reception of housekeeping.
+		pio_toggle_pin(LED2_GPIO);	// LED3 indicates the reception of housekeeping.
 	}	
 	return;
 }

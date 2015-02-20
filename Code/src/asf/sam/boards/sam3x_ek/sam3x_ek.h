@@ -34,6 +34,11 @@ Edited by: Keenan Burnett
 *	DEVELOPMENT HISTORY:
 *	11/29/2014			Header Changed.
 *
+*	02/19/2015			I commented out the pin definitions related to HSMCI as I need them for
+*						my analog inputs.
+*
+*						PA24 now corresponds to ANALOGIN0.
+*
 */
 
 #ifndef _SAM3X_EK_H_
@@ -280,6 +285,13 @@ Edited by: Keenan Burnett
 /*! LED #3 pin detection (power) */
 #define LED3_GPIO       (PIO_PC23_IDX)
 #define LED3_FLAGS      (PIO_TYPE_PIO_OUTPUT_0 | PIO_DEFAULT)
+
+/************************************************************************/
+/* ANALOG INPUTS                                                        */
+/************************************************************************/
+
+#define ANALOG_IN0	(PIO_PA24_IDX)
+#define ANALOG_IN1  (PIO_PC24_IDX)
 
 /**
  * \file
@@ -608,17 +620,17 @@ Edited by: Keenan Burnett
 /* HSMCI                                                                      */
 /* ------------------------------------------------------------------------ */
 /*! HSMCI pins definition. */
-#define PINS_HSMCI\
-	{ PIO_PA20A_MCCDA | PIO_PA19A_MCCK | PIO_PA21A_MCDA0 | PIO_PA22A_MCDA1\
-	| PIO_PA23A_MCDA2 | PIO_PA24A_MCDA3,\
-	PIOA, ID_PIOA, PIO_PERIPH_A, PIO_PULLUP },\
-	{ PIO_PD0B_MCDA4 | PIO_PD1B_MCDA5 | PIO_PD2B_MCDA6 | PIO_PD3B_MCDA7,\
-	PIOD, ID_PIOD, PIO_PERIPH_B, PIO_PULLUP},\
-	{ PIO_PE20B_MCCDB | PIO_PE22B_MCDB0 | PIO_PE24B_MCDB1 | PIO_PE26B_MCDB2\
-	| PIO_PE27B_MCDB3,\
-	PIOE, ID_PIOE, PIO_PERIPH_B, PIO_PULLUP }
-/*! HSMCI pin Card Detect. */
-#define PIN_HSMCI_CD {PIO_PE6, PIOE, ID_PIOE, PIO_INPUT, PIO_PULLUP}
+//#define PINS_HSMCI\
+	//{ PIO_PA20A_MCCDA | PIO_PA19A_MCCK | PIO_PA21A_MCDA0 | PIO_PA22A_MCDA1\
+	//| PIO_PA23A_MCDA2 | PIO_PA24A_MCDA3,\
+	//PIOA, ID_PIOA, PIO_PERIPH_A, PIO_PULLUP },\
+	//{ PIO_PD0B_MCDA4 | PIO_PD1B_MCDA5 | PIO_PD2B_MCDA6 | PIO_PD3B_MCDA7,\
+	//PIOD, ID_PIOD, PIO_PERIPH_B, PIO_PULLUP},\
+	//{ PIO_PE20B_MCCDB | PIO_PE22B_MCDB0 | PIO_PE24B_MCDB1 | PIO_PE26B_MCDB2\
+	//| PIO_PE27B_MCDB3,\
+	//PIOE, ID_PIOE, PIO_PERIPH_B, PIO_PULLUP }
+///*! HSMCI pin Card Detect. */
+//#define PIN_HSMCI_CD {PIO_PE6, PIOE, ID_PIOE, PIO_INPUT, PIO_PULLUP}
 
 /**
  * \file

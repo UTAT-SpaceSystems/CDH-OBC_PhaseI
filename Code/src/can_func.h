@@ -31,6 +31,13 @@
 	*	DEVELOPMENT HISTORY:
 	*	01/02/2015		Created.
 	*
+	*	02/01/2015		Added a prototype for send_can_command().
+	*
+	*	02/18/2015		Added a prorotype for request_housekeeping().
+	*
+	*					Added to the list of ID and message definitions in order to communicate
+	*					more effectively with the STK600.
+	*
 */
 
 #include <asf/sam/components/can/sn65hvd234.h>
@@ -136,5 +143,4 @@ void save_can_object(can_mb_conf_t *original, can_temp_t *temp);
 void restore_can_object(can_mb_conf_t *original, can_temp_t *temp);
 uint32_t send_can_command(uint32_t low, uint32_t high, uint32_t ID, uint32_t PRIORITY);		// API Function.
 uint32_t request_housekeeping(uint32_t ID);													// API Function.
-/*---------------------------------------------------------*/
 

@@ -106,7 +106,7 @@ Author: Keenan Burnett
 #include "FreeRTOS.h"
 #include "task.h"
 
-/* Standard demo includes - just needed for the LED (ParTest) initialization
+/* Standard includes - just needed for the LED (ParTest) initialization
 function. */
 #include "partest.h"
 
@@ -135,7 +135,7 @@ function. */
 * command_test() is used when PROGRAM_CHOICE is set to 8
 * housekeep_test2() is used when PROGRAM_CHOICE is set to 9.
 */
-#define PROGRAM_CHOICE	9
+#define PROGRAM_CHOICE	10
 /*-----------------------------------------------------------*/
 
 /*
@@ -151,6 +151,7 @@ extern void housekeep_test(void);
 extern void stk600_test0(void);
 extern void command_test(void);
 extern void housekeep_test2(void);
+extern void analog_test(void);
 
 /* Prototypes for the standard FreeRTOS callback/hook functions implemented
 within this file. */
@@ -224,6 +225,20 @@ int main(void)
 	{
 		housekeep_test2();
 	}
+#endif
+#if PROGRAM_CHOICE == 10
+{
+	uint32_t data = 0;
+	
+	pio_set_input(PIOC, ANALOG_IN1, 0x5);	// Enable the pin to being an input.
+	
+	pmc_enable_periph_clk(ID_PIOC);			// Enable the PIOC peripheral clock.
+	
+	while(1)
+	{	
+		data = pio_get_pin_value(ANALOG_IN1);
+	}
+}
 #endif
 	{
 		while (1){}
