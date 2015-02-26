@@ -135,7 +135,7 @@ function. */
 * command_test() is used when PROGRAM_CHOICE is set to 8
 * housekeep_test2() is used when PROGRAM_CHOICE is set to 9.
 */
-#define PROGRAM_CHOICE	10
+#define PROGRAM_CHOICE	9
 /*-----------------------------------------------------------*/
 
 /*
@@ -232,7 +232,7 @@ int main(void)
 	
 	pio_set_input(PIOC, ANALOG_IN1, 0x5);	// Enable the pin to being an input.
 	
-	pmc_enable_periph_clk(ID_PIOC);			// Enable the PIOC peripheral clock.
+	pmc_disable_periph_clk(ID_PIOC);			// Enable the PIOC peripheral clock.
 	
 	while(1)
 	{	
