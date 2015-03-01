@@ -32,6 +32,11 @@ All rights reserved
 *	11/30/2014			Added an include for wdt.h (the header file for stuff involving 
 *						the watchdog timer.
 *
+*	02/28/2015			I added an include for pdc.h (header for stuff involving DMA accesses
+*						as well as uart serial messages.
+*
+*						I also added an include for tc.h as it is used in uart messaging.
+*
 */
 
 #ifndef ASF_H
@@ -74,6 +79,12 @@ All rights reserved
 
 // From module: RTT - Real-Time Timer
 #include <asf/sam/drivers/rtt/rtt.h>
+
+// From module: PDC - Peripheral DMA Controller
+#include <asf/sam/drivers/pdc/pdc.h>
+
+// From module: TC - Timer Counter
+#include <asf/sam/drivers/tc/tc.h>
 
 #endif // ASF_H
 

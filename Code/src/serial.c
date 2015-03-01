@@ -228,48 +228,48 @@ void vSerialClose( xComPortHandle xPort )
  * intended to represent an efficient implementation.  Real applications should
  * make use of the USARTS peripheral DMA channel (PDC).
  */
-void USART0_Handler( void )
-{
-	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-	uint8_t ucChar;
-	uint32_t ulChar;
-	uint32_t ulUSARTStatus, ulUSARTMask;
-
-	ulUSARTStatus = usart_get_status( serUSART_PORT );
-	ulUSARTMask = usart_get_interrupt_mask( serUSART_PORT );
-	ulUSARTStatus &= ulUSARTMask;
-
-	if( ( ulUSARTStatus & US_CSR_TXRDY ) != 0UL )
-	{
-		/* The interrupt was caused by the TX register becoming empty.  Are
-		there any more characters to transmit? */
-		if( xQueueReceiveFromISR( xCharsForTx, &ucChar, &xHigherPriorityTaskWoken ) == pdTRUE )
-		{
-			/* A character was retrieved from the queue so can be sent to the
-			USART now. */
-			usart_putchar( serUSART_PORT, ( uint32_t ) ucChar );
-		}
-		else
-		{
-			usart_disable_interrupt( serUSART_PORT, US_IER_TXRDY );
-		}
-	}
-
-	if( ( ulUSARTStatus & US_CSR_RXRDY ) != 0UL )
-	{
-		/* A character has been received on the USART, send it to the Rx
-		handler task. */
-		usart_getchar( serUSART_PORT, &ulChar );
-		ucChar = ( uint8_t ) ( ulChar & 0xffUL );
-		xQueueSendFromISR( xRxedChars, &ucChar, &xHigherPriorityTaskWoken );
-	}
-
-	/* If sending or receiving from a queue has caused a task to unblock, and
-	the unblocked task has a priority equal to or higher than the currently
-	running task (the task this ISR interrupted), then xHigherPriorityTaskWoken
-	will have automatically been set to pdTRUE within the queue send or receive
-	function.  portEND_SWITCHING_ISR() will then ensure that this ISR returns
-	directly to the higher priority unblocked task. */
-	portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
-}
+//void USART0_Handler( void )
+//{
+	//portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	//uint8_t ucChar;
+	//uint32_t ulChar;
+	//uint32_t ulUSARTStatus, ulUSARTMask;
+//
+	//ulUSARTStatus = usart_get_status( serUSART_PORT );
+	//ulUSARTMask = usart_get_interrupt_mask( serUSART_PORT );
+	//ulUSARTStatus &= ulUSARTMask;
+//
+	//if( ( ulUSARTStatus & US_CSR_TXRDY ) != 0UL )
+	//{
+		///* The interrupt was caused by the TX register becoming empty.  Are
+		//there any more characters to transmit? */
+		//if( xQueueReceiveFromISR( xCharsForTx, &ucChar, &xHigherPriorityTaskWoken ) == pdTRUE )
+		//{
+			///* A character was retrieved from the queue so can be sent to the
+			//USART now. */
+			//usart_putchar( serUSART_PORT, ( uint32_t ) ucChar );
+		//}
+		//else
+		//{
+			//usart_disable_interrupt( serUSART_PORT, US_IER_TXRDY );
+		//}
+	//}
+//
+	//if( ( ulUSARTStatus & US_CSR_RXRDY ) != 0UL )
+	//{
+		///* A character has been received on the USART, send it to the Rx
+		//handler task. */
+		//usart_getchar( serUSART_PORT, &ulChar );
+		//ucChar = ( uint8_t ) ( ulChar & 0xffUL );
+		//xQueueSendFromISR( xRxedChars, &ucChar, &xHigherPriorityTaskWoken );
+	//}
+//
+	///* If sending or receiving from a queue has caused a task to unblock, and
+	//the unblocked task has a priority equal to or higher than the currently
+	//running task (the task this ISR interrupted), then xHigherPriorityTaskWoken
+	//will have automatically been set to pdTRUE within the queue send or receive
+	//function.  portEND_SWITCHING_ISR() will then ensure that this ISR returns
+	//directly to the higher priority unblocked task. */
+	//portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
+//}
 

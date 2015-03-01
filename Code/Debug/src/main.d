@@ -129,7 +129,8 @@ src/main.d src/main.o: ../src/main.c \
  ../src/asf/common/services/clock/sam3x/pll.h \
  ../src/asf/sam/drivers/usart/usart.h ../src/asf/sam/drivers/wdt/wdt.h \
  ../src/asf/sam/drivers/pio/pio_handler.h \
- ../src/asf/sam/drivers/rtt/rtt.h ../src/rtt_test0.h ../src/can_func.h \
+ ../src/asf/sam/drivers/rtt/rtt.h ../src/asf/sam/drivers/pdc/pdc.h \
+ ../src/asf/sam/drivers/tc/tc.h ../src/rtt_test0.h ../src/can_func.h \
  ../src/asf/sam/components/can/sn65hvd234.h \
  ../src/asf/sam/drivers/can/can.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu-toolchain\arm-none-eabi\include\string.h \
@@ -410,6 +411,10 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 ../src/asf/sam/drivers/pio/pio_handler.h:
 
 ../src/asf/sam/drivers/rtt/rtt.h:
+
+../src/asf/sam/drivers/pdc/pdc.h:
+
+../src/asf/sam/drivers/tc/tc.h:
 
 ../src/rtt_test0.h:
 

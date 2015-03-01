@@ -2,11 +2,21 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\asf\common\services\serial\usart_serial.c
+
+src\asf\sam\drivers\pdc\pdc.c
+
+src\asf\sam\drivers\tc\tc.c
+
+src\asf\sam\drivers\uart\uart.c
+
 src\command_test.c
 
 src\housekeep_test2.c
 
 src\stk600_test0.c
+
+src\usart_serial_example_pdc.c
 
 src\asf\common\services\clock\sam3x\sysclk.c
 

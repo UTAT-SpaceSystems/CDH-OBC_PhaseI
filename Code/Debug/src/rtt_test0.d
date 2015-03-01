@@ -121,7 +121,8 @@ src/rtt_test0.d src/rtt_test0.o: ../src/rtt_test0.c ../src/asf.h \
  ../src/asf/common/services/clock/sam3x/pll.h \
  ../src/asf/sam/drivers/usart/usart.h ../src/asf/sam/drivers/wdt/wdt.h \
  ../src/asf/sam/drivers/pio/pio_handler.h \
- ../src/asf/sam/drivers/rtt/rtt.h ../src/config/conf_board.h
+ ../src/asf/sam/drivers/rtt/rtt.h ../src/asf/sam/drivers/pdc/pdc.h \
+ ../src/asf/sam/drivers/tc/tc.h ../src/config/conf_board.h
 
 ../src/asf.h:
 
@@ -378,5 +379,9 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1437\arm-gnu
 ../src/asf/sam/drivers/pio/pio_handler.h:
 
 ../src/asf/sam/drivers/rtt/rtt.h:
+
+../src/asf/sam/drivers/pdc/pdc.h:
+
+../src/asf/sam/drivers/tc/tc.h:
 
 ../src/config/conf_board.h:

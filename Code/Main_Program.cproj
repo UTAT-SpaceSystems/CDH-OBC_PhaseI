@@ -397,13 +397,55 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\asf\common\services\ioport\ioport.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\services\ioport\sam\ioport_pio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\services\serial\sam_uart\uart_serial.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\services\serial\serial.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\common\services\serial\usart_serial.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\pdc\pdc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\pdc\pdc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\tc\tc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\tc\tc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\tc\tc_capture_waveform_example\tc_capture_waveform_example.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\uart\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\asf\sam\drivers\uart\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\command_test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config\conf_uart_serial.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\housekeep_test2.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\stk600_test0.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\usart_serial_example_pdc.c">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\asf\common\services\clock\genclk.h">
@@ -1084,6 +1126,10 @@
     <Folder Include="src\asf\common\services\clock\sam3x\" />
     <Folder Include="src\asf\common\services\gpio\" />
     <Folder Include="src\asf\common\services\gpio\sam_ioport\" />
+    <Folder Include="src\asf\common\services\ioport\" />
+    <Folder Include="src\asf\common\services\ioport\sam\" />
+    <Folder Include="src\asf\common\services\serial\" />
+    <Folder Include="src\asf\common\services\serial\sam_uart\" />
     <Folder Include="src\asf\common\utils\" />
     <Folder Include="src\asf\common\utils\interrupt\" />
     <Folder Include="src\asf\common\utils\stdio\" />
@@ -1095,9 +1141,13 @@
     <Folder Include="src\asf\sam\components\can\" />
     <Folder Include="src\asf\sam\drivers\" />
     <Folder Include="src\asf\sam\drivers\can\" />
+    <Folder Include="src\asf\sam\drivers\pdc\" />
     <Folder Include="src\asf\sam\drivers\pio\" />
     <Folder Include="src\asf\sam\drivers\pmc\" />
     <Folder Include="src\asf\sam\drivers\rtt\" />
+    <Folder Include="src\asf\sam\drivers\tc\" />
+    <Folder Include="src\asf\sam\drivers\tc\tc_capture_waveform_example\" />
+    <Folder Include="src\asf\sam\drivers\uart\" />
     <Folder Include="src\asf\sam\drivers\usart\" />
     <Folder Include="src\asf\sam\drivers\wdt\" />
     <Folder Include="src\asf\sam\utils\" />

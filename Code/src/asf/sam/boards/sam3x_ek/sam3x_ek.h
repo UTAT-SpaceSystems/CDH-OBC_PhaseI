@@ -620,7 +620,8 @@ Edited by: Keenan Burnett
 /* HSMCI                                                                      */
 /* ------------------------------------------------------------------------ */
 /*! HSMCI pins definition. */
-//#define PINS_HSMCI\
+
+/*#define PINS_HSMCI\
 	//{ PIO_PA20A_MCCDA | PIO_PA19A_MCCK | PIO_PA21A_MCDA0 | PIO_PA22A_MCDA1\
 	//| PIO_PA23A_MCDA2 | PIO_PA24A_MCDA3,\
 	//PIOA, ID_PIOA, PIO_PERIPH_A, PIO_PULLUP },\
@@ -629,8 +630,12 @@ Edited by: Keenan Burnett
 	//{ PIO_PE20B_MCCDB | PIO_PE22B_MCDB0 | PIO_PE24B_MCDB1 | PIO_PE26B_MCDB2\
 	//| PIO_PE27B_MCDB3,\
 	//PIOE, ID_PIOE, PIO_PERIPH_B, PIO_PULLUP }
-///*! HSMCI pin Card Detect. */
-//#define PIN_HSMCI_CD {PIO_PE6, PIOE, ID_PIOE, PIO_INPUT, PIO_PULLUP}
+! HSMCI pin Card Detect. */
+
+/*
+#define PIN_HSMCI_CD {PIO_PE6, PIOE, ID_PIOE, PIO_INPUT, PIO_PULLUP}
+*/
+
 
 /**
  * \file

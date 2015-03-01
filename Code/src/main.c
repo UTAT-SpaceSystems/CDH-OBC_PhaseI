@@ -87,6 +87,9 @@ Author: Keenan Burnett
 *					I am also working on getting housekeeping to work reliably with the subsystem micro which means
 *					getting remote messages working over the CAN bus (these already work between CAN0 and CAN1).
 *
+*	02/28/2015		Today I got the usart example project working and am now porting it over to the main program within 
+*					the test repository.
+*
 *	DESCRIPTION:
 *	This is the 'main' file for our program which will run on the OBC.
 *	main.c is called from the reset handler and will initialize hardware,
@@ -134,8 +137,9 @@ function. */
 * stk600_test0() is used when PROGRAM_CHOICE is set to 7.
 * command_test() is used when PROGRAM_CHOICE is set to 8
 * housekeep_test2() is used when PROGRAM_CHOICE is set to 9.
+* usart_example() is used when PROGRAM_CHOICE is set to 10.
 */
-#define PROGRAM_CHOICE	9
+#define PROGRAM_CHOICE	10
 /*-----------------------------------------------------------*/
 
 /*
@@ -152,6 +156,7 @@ extern void stk600_test0(void);
 extern void command_test(void);
 extern void housekeep_test2(void);
 extern void analog_test(void);
+extern int usart_example(void);
 
 /* Prototypes for the standard FreeRTOS callback/hook functions implemented
 within this file. */
@@ -227,6 +232,11 @@ int main(void)
 	}
 #endif
 #if PROGRAM_CHOICE == 10
+{
+	usart_example();
+}
+#endif
+#if PROGRAM_CHOICE == 11
 {
 	uint32_t data = 0;
 	
